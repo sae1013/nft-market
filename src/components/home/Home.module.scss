@@ -1,0 +1,70 @@
+@import "../../global.scss";
+
+.container {
+  width: 100%;
+  height:100vh;
+  background-color:#eee;
+  background-image: linear-gradient(to bottom right,$main-bg-dark,$main-bg-light, $main-bg-medium);
+  // background-image: linear-gradient(to bottom right,rgba(#140f07,1),rgba(#3a5aa9,0.9), #122449);
+  // &::before {
+  //   display: block;
+  //   content:"";
+  //   position: absolute;
+  //   z-index: 10;
+  //   width: 100%;
+  //   height: 100vh;
+    // background-color: rgba(0,0,0,0.3);
+
+  // }
+
+  position: relative;
+  font-family: 'sans-serif';
+  
+  .landing-top {
+    width: 100%;
+    // display: flex;
+    text-align: center;
+    // justify-content: center;
+    height: 100%;
+    padding-top: 20%;
+    
+    font-family: 'sans-serif';
+
+    > div {
+      color: white;
+      font-size: 66px;
+      line-height: 1.3;
+      font-weight: 800;
+    }
+    > button {
+      margin-top: 50px;
+      font-size: 25px;
+      border: none;
+      background: none;
+      border: 1px solid black;
+      color: white;
+      border-radius: 20px;
+      padding: 10px 50px;
+      background-color: rgba(0,0,0,0.5);
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba(#122449,0.3);
+        transition: all 0.3s ease;
+      }
+
+      .icon {
+        margin-right: 20px;
+      }
+    }
+
+    .float-banner {
+      position: absolute;
+      right: 5%;
+      bottom: 0;
+      font-size:30px;
+      font-weight: 400;
+    }
+  }
+}
+

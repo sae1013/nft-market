@@ -1,0 +1,16 @@
+.container {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 10;
+}
+
+.select-wrapper {
+  position:relative;
+
+  // z-index: 10;
+}
