@@ -6,7 +6,6 @@ import reportWebVitals from "./reportWebVitals";
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import {BrowserRouter} from 'react-router-dom';
-const activeChainId = ChainId.Mainnet;
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
@@ -15,7 +14,7 @@ const queryClient = new QueryClient()
 root.render(
   <BrowserRouter>
     <QueryClientProvider client={queryClient}>
-      <ThirdwebProvider desiredChainId={activeChainId}>
+      <ThirdwebProvider desiredChainId={ChainId.Goerli}>
         <App />
       </ThirdwebProvider>
     </QueryClientProvider>
@@ -23,5 +22,3 @@ root.render(
 );
 
 reportWebVitals();
-
-//i18n 설치, 리액트쿼리 ,셀렉트, sanity      리덕스 , 

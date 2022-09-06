@@ -19,15 +19,13 @@ import { QueryCache } from 'react-query'
 function App():JSX.Element {
   const {t, i18n} = useTranslation();
   
-  console.log(process.env.REACT_APP_SANITY_KEY)
-
   return (
     <div className="App">
         <Header></Header>
         <Routes>
           <Route path="/" element={<Home/>}></Route>
           <Route path="/market" element={<Market/>}></Route>
-          <Route path="/collection/:id" element={<Collection/>}></Route>
+          <Route path="/collection/:slug" element={<Collection/>}></Route>
         </Routes>
         <Footer></Footer>
     </div>

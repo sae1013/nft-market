@@ -3,7 +3,7 @@ import styles from './Header.module.scss'
 import styled from 'styled-components';
 import SelectBox from '../common/SelectBox';
 import { useTranslation } from 'react-i18next';
-
+import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
 
 type OptionType = {
   label: string;
@@ -32,13 +32,16 @@ const LoginButton = styled.button`
 `
 
 function Header() {
-
+  const connectWithMetamask = useMetamask();
+  const address = useAddress();
+  const disconnect = useDisconnect();
   const {t,i18n} = useTranslation();
   
   const loginHandler = (e:React.MouseEvent<HTMLElement>) => {
-      console.log('handler')
+    connectWithMetamask();
   }
-
+  
+  console.log(address)
   const handleChangeTrans = (option?:OptionType | null) => {
   
     let defaultTrans = LANGUAGE.EN
