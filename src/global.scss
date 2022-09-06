@@ -1,20 +1,79 @@
 /*! minireset.css*/
-blockquote, body, dd, dl, dt, fieldset, figure, h1, h2, h3, h4, h5, h6, hr, html, iframe, legend, li, ol, p, pre, textarea, ul {margin:0;padding:0}
-h1, h2, h3, h4, h5, h6 {font-size:100%;font-weight:400}
-ul {list-style:none}
-button, input, select {margin:0}
-html {box-sizing:border-box; font-size:62.5%; font-family: 'sans-serif';}
-*, :after, :before {box-sizing:inherit}
-img, video {height:auto;max-width:100%}
-iframe {border:0}
-table {border-collapse:collapse;border-spacing:0}
-td, th {padding:0}
+blockquote,
+body,
+dd,
+dl,
+dt,
+fieldset,
+figure,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+html,
+iframe,
+legend,
+li,
+ol,
+p,
+pre,
+textarea,
+ul {
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: 400;
+}
+ul {
+  list-style: none;
+}
+button,
+input,
+select {
+  margin: 0;
+}
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  font-family: "sans-serif";
+}
+*,
+:after,
+:before {
+  box-sizing: inherit;
+}
+img,
+video {
+  height: auto;
+  max-width: 100%;
+}
+iframe {
+  border: 0;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td,
+th {
+  padding: 0;
+}
 
 // color
-$main-bg-dark: #0F0F0F;
-$main-bg-medium: #742783; 
+$main-bg-dark: #0f0f0f;
+$main-bg-medium: #742783;
 $main-bg-light: #686ba0;
 
-$bg-backdrop : rgba(0,0,0,0.8);
+$bg-backdrop: rgba(0, 0, 0, 0.8);
 //font size
-$header-height:5.8rem
+$header-height: 5.8rem;
