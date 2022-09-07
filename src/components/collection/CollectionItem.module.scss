@@ -1,0 +1,114 @@
+@import "../../global.scss";
+
+.container {
+  padding-top: $header-height;
+  background-color: palevioletred;
+  min-height: 100vh;
+  
+  // 이부분 변수쓰면 왜 안되는지.. 체크
+  .wrapper {
+    display: flex;
+    height: calc(100vh - 58px);
+  }
+}
+
+.wrapper .left {
+  &::before {
+    content:" ";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.4);
+    z-index:0;
+    width: 35%;
+    height: 100%;
+  }
+
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+
+  .thumbnail {
+    position: relative;
+    z-index: 1;
+    width: 60%;
+    margin-top:5rem;
+    border: 2px solid white;
+    border-radius: 10px;
+
+    >img {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+    }  
+  }
+}
+
+.wrapper .right {
+  flex:1;
+  position: relative;
+  height: 100%;
+  padding-top: 2rem;
+  .contents {
+    
+    .collectionImage {
+      position: relative;
+      width: 60%;
+      height: 30rem;
+      left: 50%;
+      transform: translateX(-50%);
+      > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    h2 {
+        text-align: center;
+        font-size: 3rem;
+        padding-top: 4rem;
+        font-weight: 700;
+
+    }
+    p {
+      text-align: center;
+      font-size: 2rem;
+      color: greenyellow;
+      padding-top: 1rem;
+    }
+    button {
+      width: 80%;
+      position: absolute;
+      bottom: 2rem;
+      padding: 2rem 3rem;
+      // border: 1px solid white;
+      border: none;
+      background: white;
+      border-radius: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  // .gallery {
+  //   margin-top: 10rem;
+  //   display: grid;
+  //   grid-template-columns: repeat(4,1fr);
+  //   grid-column-gap: 1rem;
+  //   // grid-template-rows: ;
+  //   flex: 1;
+  //   padding: 0 2rem;
+  //   > div {
+  //     // width: 100%;
+  //     // height: 100%;
+  //     >img {
+  //       width: 100%;
+  //       height: 100%;
+  //       object-fit: cover;
+  //     }
+  //   }
+ }
+  
