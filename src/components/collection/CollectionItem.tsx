@@ -317,10 +317,10 @@ const mintItem:NFT[] = [
 function CollectionItem() {
   return (
     <div className={styles.fullpage}>
-      <section className={styles.container}>
-          <div className={styles.backdrop}>
+      <section className={styles.container} style={{backgroundImage: `url(https://cdn.sanity.io/images/ygstsibc/production/f72570921cab407c11a39c8e1717f5607718e14d-2951x2430.webp)`}}>
+          {/* <div className={styles.backdrop}>
             <img src="https://cdn.sanity.io/images/ygstsibc/production/f72570921cab407c11a39c8e1717f5607718e14d-2951x2430.webp"></img>
-          </div>
+          </div> */}
         <div className={styles.wrapper}>
           <div className={styles.left}>
             {/* <div className={styles.backdrop}>
@@ -345,7 +345,43 @@ function CollectionItem() {
           </div>
         </div> 
       </section>
-      <section className={`${styles.container2}`}>no222</section>
+      <section className={`${styles.container2}`}>
+        <div className={styles.wrapper}>
+              <ul className={styles.grid}>
+                <li className={styles.grid__item}>
+                  <div className={styles.image__wrap}>
+                    <img src="https://cdn.sanity.io/images/ygstsibc/production/388cc4cee34c68e86c0beb685292f29eca01431f-200x200.png"></img>
+                  </div>
+                </li>
+                <li className={styles.grid__item}>
+                  <div className={styles.image__wrap}>
+                    <img src="https://cdn.sanity.io/images/ygstsibc/production/388cc4cee34c68e86c0beb685292f29eca01431f-200x200.png"></img>
+                  </div>
+                </li>
+                <li className={styles.grid__item}>
+                  <div className={styles.image__wrap}>
+                    <img src="https://cdn.sanity.io/images/ygstsibc/production/388cc4cee34c68e86c0beb685292f29eca01431f-200x200.png"></img>
+                  </div>
+                </li>
+                <li className={styles.grid__item}>
+                  <div className={styles.image__wrap}>
+                    <img src="https://cdn.sanity.io/images/ygstsibc/production/388cc4cee34c68e86c0beb685292f29eca01431f-200x200.png"></img>
+                  </div>
+                </li>
+                <li className={styles.grid__item}>
+                  <div className={styles.image__wrap}>
+                    <img src="https://cdn.sanity.io/images/ygstsibc/production/388cc4cee34c68e86c0beb685292f29eca01431f-200x200.png"></img>
+                  </div>
+                </li>
+                <li className={styles.grid__item}>
+                  <div className={styles.image__wrap}>
+                    <img src="https://cdn.sanity.io/images/ygstsibc/production/388cc4cee34c68e86c0beb685292f29eca01431f-200x200.png"></img>
+                  </div>
+                </li>
+              </ul>
+            
+        </div>
+      </section>
     </div>
   )  
    
