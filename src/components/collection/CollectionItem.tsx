@@ -316,28 +316,36 @@ const mintItem:NFT[] = [
 
 function CollectionItem() {
   return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
-        
-        <div className={styles.left}>
-          <div className={styles['thumbnail']}>
-              <img src={"https://cdn.sanity.io/images/ygstsibc/production/388cc4cee34c68e86c0beb685292f29eca01431f-200x200.png"}></img>
+    <div className={styles.fullpage}>
+      <section className={styles.container}>
+          <div className={styles.backdrop}>
+            <img src="https://cdn.sanity.io/images/ygstsibc/production/f72570921cab407c11a39c8e1717f5607718e14d-2951x2430.webp"></img>
           </div>
-        </div>
-
-        <div className={styles.right}>
-          <div className={styles.contents}>
-            <div className={styles.collectionImage}>
-              <img src={"https://cdn.sanity.io/images/ygstsibc/production/388cc4cee34c68e86c0beb685292f29eca01431f-200x200.png"}></img>
+        <div className={styles.wrapper}>
+          <div className={styles.left}>
+            {/* <div className={styles.backdrop}>
+              <img src="https://cdn.sanity.io/images/ygstsibc/production/f72570921cab407c11a39c8e1717f5607718e14d-2951x2430.webp"></img>
+            </div> */}
+            <div className={styles['thumbnail']}>
+                <img src={"https://cdn.sanity.io/images/ygstsibc/production/388cc4cee34c68e86c0beb685292f29eca01431f-200x200.png"}></img>
             </div>
-            <h2>
-              The Vocht Ape NFT Club | DROP
-            </h2>
-            <p>13 / 21 NFT's clamed</p>
-            <button>Mint NFT(0.1 ETH)</button>
           </div>
-        </div>
-      </div> 
+
+          <div className={styles.right}>
+            <div className={styles.contents}>
+              <div className={styles.collectionImage}>
+                <img src={"https://cdn.sanity.io/images/ygstsibc/production/388cc4cee34c68e86c0beb685292f29eca01431f-200x200.png"}></img>
+              </div>
+              <h2>
+                The Vocht Ape NFT Club | DROP
+              </h2>
+              <p>13 / 21 NFT's clamed</p>
+              <button>Mint NFT(0.1 ETH)</button>
+            </div>
+          </div>
+        </div> 
+      </section>
+      <section className={`${styles.container} ${styles.second}`}>no222</section>
     </div>
   )  
    

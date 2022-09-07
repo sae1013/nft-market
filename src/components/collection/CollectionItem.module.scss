@@ -1,66 +1,119 @@
 @import "../../global.scss";
 
+.backdrop {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  // z-index: -1;
+  filter: blur(4px);
+
+  > img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.fullpage {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+.container.second {
+  font-size: 2rem;
+  scroll-snap-align: start;
+  height: 100vh;
+  background: red;
+}
+
 .container {
-  padding-top: $header-height;
-  background-color: palevioletred;
-  min-height: 100vh;
-  
-  // 이부분 변수쓰면 왜 안되는지.. 체크
+  // padding-top: $header-height;
+  background-color: $main-bg-medium;
+  // min-height: 100vh;
+  height: 100vh;
+  width: 100%;
+  scroll-snap-align: start;
   .wrapper {
     display: flex;
-    height: calc(100vh - 58px);
   }
 }
 
 .wrapper .left {
-  &::before {
-    content:" ";
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0,0,0,0.4);
-    z-index:0;
-    width: 35%;
-    height: 100%;
-  }
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.5);
 
-  width: 35%;
+  // &::before {
+  //   content:" ";
+  //   display: inline-block;
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   background-color: rgba(0,0,0,0.4);
+  //   z-index:-1;
+  //   width: 40%;
+  //   height: 100%;
+  // }
+  position: relative;
+  z-index: 12;
+  // background-color: rgba(0,0,0,0.7);
+  width: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 1rem;
 
   .thumbnail {
     position: relative;
     z-index: 1;
-    width: 60%;
-    margin-top:5rem;
-    border: 2px solid white;
-    border-radius: 10px;
+    width: 80%;
 
-    >img {
-      width: 100%;
-      height: 100%;
-      border-radius: 10px;
+    background-image: linear-gradient(
+      60deg,
+      orangered,
+      gold,
+      orangered,
+      gold,
+      orangered,
+      gold
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: rotate(-5deg);
+    }
+    > img {
+      width: 97%;
+      height: 97%;
+
+      // border-radius: 10px;
       object-fit: cover;
-    }  
+    }
   }
 }
 
 .wrapper .right {
-  flex:1;
+  flex: 1;
   position: relative;
-  height: 100%;
-  padding-top: 2rem;
+  height: 100vh;
+  padding-top: $header-height;
+  background-color: rgba(0, 0, 0, 0.7);
+
   .contents {
-    
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
     .collectionImage {
       position: relative;
       width: 60%;
       height: 30rem;
       left: 50%;
+      box-shadow: 0 0 2rem rgba(255, 255, 255, 0.3);
       transform: translateX(-50%);
+
       > img {
         width: 100%;
         height: 100%;
@@ -68,11 +121,11 @@
       }
     }
     h2 {
-        text-align: center;
-        font-size: 3rem;
-        padding-top: 4rem;
-        font-weight: 700;
-
+      color: whitesmoke;
+      text-align: center;
+      font-size: 3rem;
+      padding-top: 4rem;
+      font-weight: 700;
     }
     p {
       text-align: center;
@@ -81,34 +134,30 @@
       padding-top: 1rem;
     }
     button {
+      font-size: 2rem;
+      font-weight: bolder;
+      color: white;
       width: 80%;
       position: absolute;
       bottom: 2rem;
       padding: 2rem 3rem;
-      // border: 1px solid white;
       border: none;
-      background: white;
+      background-color: rgba(250, 163, 2, 0.823);
       border-radius: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
+      align-self: center;
+      &:hover {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        animation: vibration 0.1s infinite;
+      }
     }
   }
-  // .gallery {
-  //   margin-top: 10rem;
-  //   display: grid;
-  //   grid-template-columns: repeat(4,1fr);
-  //   grid-column-gap: 1rem;
-  //   // grid-template-rows: ;
-  //   flex: 1;
-  //   padding: 0 2rem;
-  //   > div {
-  //     // width: 100%;
-  //     // height: 100%;
-  //     >img {
-  //       width: 100%;
-  //       height: 100%;
-  //       object-fit: cover;
-  //     }
-  //   }
- }
-  
+}
+@keyframes vibration {
+  from {
+    transform: rotate(1deg);
+  }
+  to {
+    transform: rotate(-1deg);
+  }
+}
+
