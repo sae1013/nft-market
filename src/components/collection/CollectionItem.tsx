@@ -345,7 +345,7 @@ function CollectionItem() {
           </div>
         </div> 
       </section>
-      <section className={`${styles.container} ${styles.second}`}>no222</section>
+      <section className={`${styles.container2}`}>no222</section>
     </div>
   )  
    
