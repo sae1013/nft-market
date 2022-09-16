@@ -40,8 +40,11 @@ function Header() {
   const loginHandler = (e: React.MouseEvent<HTMLElement>) => {
     connectWithMetamask();
   };
+  
+  const logoutHandler = (e) => {
+    disconnect();
+  }
 
-  console.log(address);
   const handleChangeTrans = (option?: OptionType | null) => {
     let defaultTrans = LANGUAGE.EN;
     if (option) {
@@ -61,10 +64,16 @@ function Header() {
 
   return (
     <div className={styles.container}>
-      <div>
-        <LoginButton onClick={loginHandler}>지갑 로그인</LoginButton>
-      </div>
-
+      {
+        address ? 
+        <div> 
+          <LoginButton onClick={logoutHandler}>로그아웃</LoginButton>
+        </div>  
+        :
+        <div>
+          <LoginButton onClick={loginHandler}>지갑 로그인</LoginButton>
+        </div>
+      }
       <div className={styles["select-wrapper"]}>
         <SelectBox onChange={handleChangeTrans} />
       </div>
