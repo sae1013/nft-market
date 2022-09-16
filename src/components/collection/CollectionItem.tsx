@@ -347,6 +347,7 @@ function CollectionItem() {
       </section>
       <section className={`${styles.container2}`}>
         <div className={styles.wrapper}>
+              <h1 className={styles.section2__title}>Yacht NFT Collection!</h1>
               <ul className={styles.grid}>
                 <li className={styles.grid__item}>
                   <div className={styles.image__wrap}>
@@ -356,6 +357,11 @@ function CollectionItem() {
                 <li className={styles.grid__item}>
                   <div className={styles.image__wrap}>
                     <img src="https://cdn.sanity.io/images/ygstsibc/production/388cc4cee34c68e86c0beb685292f29eca01431f-200x200.png"></img>
+                  </div>
+                  <div className={styles.description}>
+                    <div className={styles.title}>
+                      "NFT YACHT!"
+                    </div>
                   </div>
                 </li>
                 <li className={styles.grid__item}>

@@ -23,6 +23,7 @@ const query = `
 `;
 interface Error {}
 
+
 function Market() {
   const navigate = useNavigate();
   const {
@@ -31,7 +32,7 @@ function Market() {
     data: collections,
   } = useQuery(
     "nftCollections",
-    () =>
+    ():Promise<Collection[]> =>
       sanityClient.fetch(query).then((res) => {
         return res;
       }),
@@ -48,7 +49,7 @@ function Market() {
     <div className={styles["container"]}>
       <Category></Category>
       <ul className={styles["list"]}>
-        {collections.map((item: Collection) => {
+        {collections?.map((item: Collection) => {
           return (
             <li
               onClick={() => {
