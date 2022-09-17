@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
-interface CategoryType {
-  label: string;
-  key: string;
-}
+import { categories } from '../common/category';
 
 interface CategoryItemProps {
   active: boolean;
 }
-
+interface Props {
+  categories:{
+    key:string,
+    label:string
+  },
+  handleCategory:() => void
+}
 const Container = styled.div`
   font-size: 2.5rem;
   padding: 1rem 2rem;
   border-bottom: 2px solid grey;
   margin-bottom: 2rem;
+  text-align:center;
+  margin: 4rem 2rem;
 `;
 
 const CategoryList = styled.ul`
@@ -39,54 +43,30 @@ const CategoryItem = styled.li<CategoryItemProps>`
     padding-bottom: 1rem;
   }
 `;
-const categoryList: CategoryType[] = [
-  {
-    label: "art",
-    key: "0001",
-  },
-  {
-    label: "character",
-    key: "0002",
-  },
-  {
-    label: "music",
-    key: "0003",
-  },
-  {
-    label: "sports",
-    key: "0004",
-  },
-  {
-    label: "etc",
-    key: "0005",
-  },
-];
-function Category() {
-  const [selectedCategory, setSelectedCategory] = useState<string>(
-    categoryList[0].key
-  );
 
+function Category({selectedCategory,handleCategory}) {
+  
   const onChangeCategory = (e: React.MouseEvent) => {
     const key = e.currentTarget.getAttribute("data-key");
     const label = e.currentTarget.getAttribute("data-label");
     if (key && label) {
-      setSelectedCategory(key);
+      handleCategory(key);
     }
   };
-
+  
   return (
     <Container>
       <CategoryList>
-        {categoryList.map(({ key, label }) => {
+        {Object.values(categories).map(({ key, label }) => {
           return (
             <CategoryItem
               key={key}
               data-key={key}
               data-label={label}
               onClick={onChangeCategory}
-              active={key == selectedCategory}
+              active={key === selectedCategory}
             >
-              <span>{label}</span>
+              <span>{label.charAt(0).toUpperCase()+label.slice(1)}</span>
             </CategoryItem>
           );
         })}

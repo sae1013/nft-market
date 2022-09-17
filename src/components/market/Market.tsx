@@ -6,32 +6,37 @@ import { useQuery } from "react-query";
 import { urlFor } from "../../sanity";
 import Category from "./Category";
 import { useNavigate } from "react-router-dom";
+import { categories } from '../common/category';
 
-const query = `
-*[_type == "collections"]{
-  _id,
-  address,
-  creator-> {name,slug {current}},
-  description,
-  nftCollectionName,
-  title,
-  mainImage {asset},
-  previewImage {asset},
-  slug {current}
-
-}
-`;
 interface Error {}
-
 
 function Market() {
   const navigate = useNavigate();
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+      Object.values(categories)[0].key
+    ); 
+
+  const query = `
+  *[_type == "collections"]{
+    _id,
+    address,
+    creator-> {name,slug {current}},
+    description,
+    nftCollectionName,
+    title,
+    mainImage {asset},
+    previewImage {asset},
+    slug {current}
+  
+  }
+  `;
+
   const {
     isLoading,
     error,
     data: collections,
   } = useQuery(
-    "nftCollections",
+    ["collectionList",selectedCategory],
     ():Promise<Collection[]> =>
       sanityClient.fetch(query).then((res) => {
         return res;
@@ -47,11 +52,11 @@ function Market() {
 
   return (
     <div className={styles["container"]}>
-      <Category></Category>
+      <Category selectedCategory={selectedCategory} handleCategory ={setSelectedCategory}></Category>
       <ul className={styles["list"]}>
         {collections?.map((item: Collection) => {
           return (
-            <li
+            <li key = {item._id}
               onClick={() => {
                 navigate(`/collection/${item.slug.current}`);
               }}
