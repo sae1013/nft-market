@@ -10,11 +10,11 @@ function Home() {
   const goMarket = (e: React.MouseEvent) => {
     navigate(`/market`);
   };
-
+  
   return (
     <div className={styles["container"]}>
       <section id="1" className={styles["landing-top"]}>
-        <div dangerouslySetInnerHTML={{ __html: t("hello") }}></div>
+        <div dangerouslySetInnerHTML={{ __html: t("common.intro") }}></div>
         <button onClick={goMarket}>
           <span className={styles["icon"]}>👉</span>Play Market
         </button>
