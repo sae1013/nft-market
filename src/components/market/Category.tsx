@@ -32,12 +32,12 @@ const CategoryList = styled.ul`
 const CategoryItem = styled.li<CategoryItemProps>`
   margin-right: 2rem;
   min-width: 20%;
-  /* min-width:20rem; */
+  transition : color 0.3s ease-in;
   color: ${(props) => (props.active ? "palevioletred" : "gray")};
   border-bottom: ${(props) =>
     props.active ? ".3rem solid palevioletred" : "none"};
   cursor: pointer;
-
+  
   span {
     display: inline-block;
     padding-bottom: 1rem;

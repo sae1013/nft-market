@@ -6,19 +6,21 @@ import { useQuery } from "react-query";
 import { urlFor } from "../../sanity";
 import Category from "./Category";
 import { useNavigate } from "react-router-dom";
-import { categories } from '../common/category';
+import { categories } from "../common/category";
 
 interface Error {}
 
 function Market() {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<string>(
-      Object.values(categories)[0].key
-    ); 
+    Object.values(categories)[0].key
+  );
 
-  const query = `
-  *[_type == "collections"]{
+  let query = ` 
+  *[_type == "collections" && category->key == "${selectedCategory}"]
+  {
     _id,
+    value,
     address,
     creator-> {name,slug {current}},
     description,
@@ -27,17 +29,32 @@ function Market() {
     mainImage {asset},
     previewImage {asset},
     slug {current}
-  
   }
   `;
-
+  if (selectedCategory === "40001") {
+    query = ` 
+  *[_type == "collections"]
+  {
+    _id,
+    value,
+    address,
+    creator-> {name,slug {current}},
+    description,
+    nftCollectionName,
+    title,
+    mainImage {asset},
+    previewImage {asset},
+    slug {current}
+  }
+  `;
+  }
   const {
     isLoading,
     error,
     data: collections,
   } = useQuery(
-    ["collectionList",selectedCategory],
-    ():Promise<Collection[]> =>
+    ["collectionList", selectedCategory],
+    (): Promise<Collection[]> =>
       sanityClient.fetch(query).then((res) => {
         return res;
       }),
@@ -52,11 +69,15 @@ function Market() {
 
   return (
     <div className={styles["container"]}>
-      <Category selectedCategory={selectedCategory} handleCategory ={setSelectedCategory}></Category>
+      <Category
+        selectedCategory={selectedCategory}
+        handleCategory={setSelectedCategory}
+      ></Category>
       <ul className={styles["list"]}>
         {collections?.map((item: Collection) => {
           return (
-            <li key = {item._id}
+            <li
+              key={item._id}
               onClick={() => {
                 navigate(`/collection/${item.slug.current}`);
               }}
