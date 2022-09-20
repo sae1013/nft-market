@@ -102,7 +102,7 @@
       color: greenyellow;
       padding-top: 1rem;
     }
-    button {
+    .active__button {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -123,6 +123,12 @@
         animation: vibration 0.1s infinite;
       }
     }
+    .disable__button {
+      &:hover {
+        animation-name: none;
+      }
+    }
+    
   }
 }
 @keyframes vibration {
@@ -263,10 +269,3 @@
   }
 }
 
-button.disable__animation {
-  
-  &:hover {
-    animation: none;
-  }
-
-}

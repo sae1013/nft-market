@@ -63,14 +63,17 @@ function Header() {
   };
 
   return (
+    <>
     <div className={styles.container}>
       {
         address ? 
         <div> 
+          <span className={styles['address']}>{`${address.slice(0,6)}...${address.slice(-5)}`}</span>
           <LoginButton onClick={logoutHandler}>로그아웃</LoginButton>
         </div>  
         :
         <div>
+          
           <LoginButton onClick={loginHandler}>지갑 로그인</LoginButton>
         </div>
       }
@@ -78,6 +81,8 @@ function Header() {
         <SelectBox onChange={handleChangeTrans} />
       </div>
     </div>
+    {/* <div>놈농ㅁㄴ</div> */}
+    </>
   );
 }
 
