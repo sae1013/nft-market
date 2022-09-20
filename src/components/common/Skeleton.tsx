@@ -11,12 +11,15 @@ interface Props {
 
 interface StyledProps {
   width:string,
-  height:string
+  height:string,
+  variant:string,
+  borderRadius?:string,
 }
 const CustomSkeleton = styled.div<StyledProps>`
-  width: ${props => props.width || '10px'};
-  height: ${(props)=> (props.height || '10px')};
+  width: ${props => props.width || '20px'};
+  height: ${(props)=> (props.height || '20px')};
   background-color: #e5e5e5;
+  border-radius: ${props => props.variant === 'circular' ? '50%': props.variant==="rounded"? props.borderRadius:'0px' };
   position: relative;
   background: linear-gradient(
     120deg,
@@ -27,7 +30,7 @@ const CustomSkeleton = styled.div<StyledProps>`
   );
   background-size: 200% 100%;
   background-position: 100% 0;
-  animation: wave 2s infinite;
+  animation: wave 1s infinite;
 
   @keyframes wave {
   100% {
@@ -36,10 +39,10 @@ const CustomSkeleton = styled.div<StyledProps>`
 }
 `
 
-function Skeleton({variant,width,height}) {
+function Skeleton(props):JSX.Element {
 
   return (
-    <CustomSkeleton width={width} height={height}></CustomSkeleton>
+    <CustomSkeleton {...props}></CustomSkeleton>
   )
 }
 

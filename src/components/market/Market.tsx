@@ -7,6 +7,7 @@ import { urlFor } from "../../sanity";
 import Category from "./Category";
 import { useNavigate } from "react-router-dom";
 import { categories } from "../common/category";
+import Skeleton from '../common/Skeleton';
 
 interface Error {}
 
@@ -64,7 +65,6 @@ function Market() {
     }
   );
 
-  if (isLoading) return <div>'Loading...'</div>;
   //  if (error) return 'An error has occurred: ' + error.message
 
   return (
@@ -74,9 +74,19 @@ function Market() {
         handleCategory={setSelectedCategory}
       ></Category>
       <ul className={styles["list"]}>
-        {collections?.map((item: Collection) => {
+        {isLoading &&
+          [1,2,3,4,5].map(() => {
+            return (
+              <li className={styles["market__skeleton"]}>
+                <Skeleton variant = "rectangle" width="100%" height="100%"></Skeleton>
+              </li>
+            )
+          })
+        }
+        
+        {!isLoading && collections?.map((item: Collection) => {
           return (
-            <li
+            <li 
               key={item._id}
               onClick={() => {
                 navigate(`/collection/${item.slug.current}`);
