@@ -1,9 +1,10 @@
 .container {
   overflow: hidden;
+
 }
 .keyvisual__container {
   position: absolute;
-  top: 20%;
+  top: 22%;
   left: 50%;
   transform: translateX(-50%);
   height: 70vh;
@@ -42,7 +43,7 @@
 
   .swiper-pagination {
     position: absolute;
-    top: 2rem;
+    bottom: 2rem;
     height: 0;
     
   }
@@ -74,7 +75,7 @@
 
           .badge {
             position: absolute;
-            top: 35%;
+            top: 40%;
           }
 
         }
@@ -82,12 +83,12 @@
         .keyvisual {
           &__title {
             position: absolute;
-            top: 15%;
+            top: 20%;
             font-size: 3.5rem;
             color: #fff;
           }
           &__date {
-            top:25%;
+            top:30%;
             position: absolute;
             font-size: 2rem;
             color: #fff;

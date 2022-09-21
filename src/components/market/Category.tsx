@@ -33,7 +33,7 @@ const CategoryItem = styled.li<CategoryItemProps>`
   margin-right: 2rem;
   min-width: 20%;
   transition : color 0.3s ease-in;
-  color: ${(props) => (props.active ? "palevioletred" : "gray")};
+  color: ${(props) => (props.active ? "#f2f2f2" : "gray")};
   border-bottom: ${(props) =>
     props.active ? ".3rem solid palevioletred" : "none"};
   cursor: pointer;

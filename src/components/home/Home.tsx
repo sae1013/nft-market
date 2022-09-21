@@ -34,7 +34,11 @@ function Home() {
   ]
   
   return (
-    <div className={styles["container"]}>
+    <section className={styles["container"]}>
+      {/* <h1 className={styles["title"]}>Mint, Showcase NFTs</h1> */}
+      <button onClick={goMarket}>
+        <span className={styles["icon"]}>👉</span>Play Market
+      </button>
       <div className="keyvisual__container">
         <Swiper
           slidesPerView={1}
@@ -60,13 +64,13 @@ function Home() {
           ))}
         </Swiper>
       </div>
-    </div>
+    </section>
     // <div className={styles["container"]}>
     //   <section id="1" className={styles["landing-top"]}>
     //     <div dangerouslySetInnerHTML={{ __html: t("common.intro") }}></div>
-    //     {/* <button onClick={goMarket}>
-    //       <span className={styles["icon"]}>👉</span>Play Market
-    //     </button> */}
+        // {/* <button onClick={goMarket}>
+        //   <span className={styles["icon"]}>👉</span>Play Market
+        // </button> */}
 
     //     {/* <div className={styles['float-banner']}>
     //       <span></span>
