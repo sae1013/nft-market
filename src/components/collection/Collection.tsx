@@ -21,8 +21,17 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Collection.module.scss";
 import { urlFor } from "../../sanity";
 import { NonceProvider } from "react-select";
+import { setDefaultResultOrder } from "dns";
 
 const initAddress = "0x0000000000000000000000000000000000000000";
+
+interface NFT_CONDITION  {
+  currencyMetadata: {
+    displayValue:string
+  }
+  [key:string]:string | Object
+}
+
 type NFT_ATTRIBUTE = {
   trait_type: string;
   value: string;
@@ -353,13 +362,15 @@ function Collection() {
   const navigate = useNavigate();
   const address = useAddress();
   const { slug } = useParams();
-  const [contractAddress, setContractAddress] = useState<string | undefined>();
-
+  const [contractAddress, setContractAddress] = useState<string>();
+  const [clamedSupply,setClamedSupply] = useState<bigint>();
+  const [conditionIsLoading,setConditionIsLoading ] = useState(false);
+  const [conditionError, setConditionError] = useState<string>();
+  const [condition,setCondition] = useState<NFT_CONDITION>();
   const sdk = useSDK();
-  const nftDrop = useNFTDrop(contractAddress);
-  const { data: claimedNFTs, isLoading } = useClaimedNFTs(nftDrop);
+  const nftDrop = useNFTDrop(contractAddress); // sanity에서 주소를 먼저 가져오고, third web에 요청
+  const { data: claimedNFTs, isLoading } = useClaimedNFTs(nftDrop); // thirdWeb, nftDrop의 모든 claim아이템 조회
   const [isMinting, setIsMinting] = useState<boolean>(false);
-  console.log("claimed", claimedNFTs);
 
   const handleMintNFT = async () => {
     let errorToastId;
@@ -415,7 +426,7 @@ function Collection() {
   slug {current}
 }
 `;
-  const { error: emptyError, data: collection } = useQuery(
+  const { error: emptyError, data: collection } = useQuery( // sanity에서 컬렉션정보 먼저 조회
     // contract의 address를 먼저 가져옴
     ["collection", slug],
     () => {
@@ -435,18 +446,39 @@ function Collection() {
     }
   );
 
-  const {
-    error: supplyError,
-    data: clamedSupply,
-    isLoading: isSupplyLoading,
-  } = useQuery(
-    ["clamedSupply", slug],
-    () => {
-      return nftDrop?.totalClaimedSupply();
-    },
-    { enabled: !!nftDrop }
-  );
-  console.log(collection);
+  const fetchMetaInfo = async(nftDrop) => {
+    try{
+      setConditionIsLoading(true);
+      const supply = await nftDrop.totalClaimedSupply()
+      const condition = await nftDrop.claimConditions.getAll();
+      console.log(condition)
+      setClamedSupply(supply)
+      setCondition(condition[0])
+    } catch(err){
+      console.log(err)
+      if(err) setConditionError(err.toString());
+    }
+    setConditionIsLoading(false);
+    
+  }
+
+  // const { // 서플라이... 가격 정보도 받아와야함.
+  //   error: supplyError,
+  //   data: clamedSupply,
+  //   isLoading: isSupplyLoading,
+  // } = useQuery(
+  //   ["clamedSupply", slug],
+  //   () => {
+  //     return nftDrop?.totalClaimedSupply();
+  //   },
+  //   { enabled: !!nftDrop }
+  // );
+
+  useEffect(() => {
+    if(nftDrop){
+      fetchMetaInfo(nftDrop)
+    }
+  },[nftDrop])
 
   if (isLoading) {
     
@@ -458,20 +490,13 @@ function Collection() {
         <section
           className={styles.container}
           style={{
-            backgroundImage: `url(https://cdn.sanity.io/images/ygstsibc/production/f72570921cab407c11a39c8e1717f5607718e14d-2951x2430.webp)`,
+            backgroundImage: `url(${urlFor(collection.previewImage).url()})`,
           }}
         >
-          {/* <div className={styles.backdrop}>
-            <img src="https://cdn.sanity.io/images/ygstsibc/production/f72570921cab407c11a39c8e1717f5607718e14d-2951x2430.webp"></img>
-          </div> */}
           <div className={styles.wrapper}>
             <div className={styles.left}>
-              {/* <div className={styles.backdrop}>
-              <img src="https://cdn.sanity.io/images/ygstsibc/production/f72570921cab407c11a39c8e1717f5607718e14d-2951x2430.webp"></img>
-            </div> */}
               <div className={styles["thumbnail"]}>
                 <img src={urlFor(collection.mainImage).url()}></img>
-                {/* <img src={"https://cdn.sanity.io/images/ygstsibc/production/388cc4cee34c68e86c0beb685292f29eca01431f-200x200.png"}></img> */}
               </div>
             </div>
 
@@ -479,23 +504,28 @@ function Collection() {
               <div className={styles.contents}>
                 <div className={styles.collectionImage}>
                   <img src={urlFor(collection.previewImage).url()}></img>
-                  {/* <img src={"https://cdn.sanity.io/images/ygstsibc/production/388cc4cee34c68e86c0beb685292f29eca01431f-200x200.png"}></img> */}
                 </div>
                 <h2>{collection.title}</h2>
-
-                {isSupplyLoading && <p>loading...</p>}
-
-                <p>
-                  {clamedSupply?.toString()} / {claimedNFTs?.length} NFT's
-                  clamed
-                </p>
+                {conditionError ? 
+                  <p>Something wrong</p>
+                  :
+                conditionIsLoading ? 
+                  <p>fetching clamed Info...</p>
+                :
+                  <p>
+                    {clamedSupply?.toString()} / {claimedNFTs?.length} NFT's
+                    clamed
+                  </p>
+                }
                 <>
                   <button
                     onClick={handleMintNFT}
                     disabled={isMinting}
                     className={`${styles.active__button} ${isMinting && styles.disable__button}`}
                   >
-                    {!isMinting && <span>Mint NFT(0.1 ETH)</span>}
+                    {conditionIsLoading && <span>Mint NFT(wait...)</span>}
+                    {!conditionIsLoading && !isMinting && <span>Mint NFT({condition?.currencyMetadata?.displayValue})</span>}
+                    
                     {isMinting && (
                       <ColorRing
                         visible={true}
@@ -539,7 +569,6 @@ function Collection() {
                       },
                       loading: {
                         style: {
-                          // background:'transparent',
                           color: "orange",
                         },
                       },
@@ -553,7 +582,7 @@ function Collection() {
 
         <section className={`${styles.container2}`}>
           <div className={styles.wrapper}>
-            <h1 className={styles.section2__title}>Yacht NFT Collection!</h1>
+            <h1 className={styles.section2__title}>Available</h1>
             <ul className={styles.grid}>
               {claimedNFTs?.map((nft) => {
                 return (
