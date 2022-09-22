@@ -65,8 +65,6 @@ function Market() {
     }
   );
 
-  //  if (error) return 'An error has occurred: ' + error.message
-
   return (
     <div className={styles["container"]}>
       <Category

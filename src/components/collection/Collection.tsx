@@ -363,10 +363,6 @@ function Collection() {
   const address = useAddress();
   const { slug } = useParams();
   const [contractAddress, setContractAddress] = useState<string>();
-  const [clamedSupply,setClamedSupply] = useState<bigint>();
-  const [conditionIsLoading,setConditionIsLoading ] = useState(false);
-  const [conditionError, setConditionError] = useState<string>();
-  const [condition,setCondition] = useState<NFT_CONDITION>();
   const sdk = useSDK();
   const nftDrop = useNFTDrop(contractAddress); // sanity에서 주소를 먼저 가져오고, third web에 요청
   const { data: claimedNFTs, isLoading } = useClaimedNFTs(nftDrop); // thirdWeb, nftDrop의 모든 claim아이템 조회
@@ -441,44 +437,28 @@ function Collection() {
       });
     },
     {
-      cacheTime: 1 * 60 * 1000, // 캐시 1분
+      cacheTime: 1 * 60 * 1000,
       enabled: !!slug,
     }
   );
 
-  const fetchMetaInfo = async(nftDrop) => {
-    try{
-      setConditionIsLoading(true);
-      const supply = await nftDrop.totalClaimedSupply()
-      const condition = await nftDrop.claimConditions.getAll();
-      console.log(condition)
-      setClamedSupply(supply)
-      setCondition(condition[0])
-    } catch(err){
-      console.log(err)
-      if(err) setConditionError(err.toString());
-    }
-    setConditionIsLoading(false);
+  function useMetaInfo(){
+    const supplyQuery = useQuery(["supply",slug], ()=> {
+      return nftDrop?.totalClaimedSupply();
+    }, 
+    { enabled: !!nftDrop }
+    )
     
+    const conditionQuery = useQuery(["condition",slug], ()=> {
+      return nftDrop?.claimConditions.getAll();
+    }, 
+    { enabled: !!nftDrop }
+    )
+    return [supplyQuery,conditionQuery]
   }
-
-  // const { // 서플라이... 가격 정보도 받아와야함.
-  //   error: supplyError,
-  //   data: clamedSupply,
-  //   isLoading: isSupplyLoading,
-  // } = useQuery(
-  //   ["clamedSupply", slug],
-  //   () => {
-  //     return nftDrop?.totalClaimedSupply();
-  //   },
-  //   { enabled: !!nftDrop }
-  // );
-
-  useEffect(() => {
-    if(nftDrop){
-      fetchMetaInfo(nftDrop)
-    }
-  },[nftDrop])
+  const [supplyQuery,conditionQuery] = useMetaInfo();
+  const {error:supplyError,data:clamedSupply,isLoading:supplyLoading} = supplyQuery
+  const {error:conditionError,data:condition,isLoading:conditionIsLoading} = conditionQuery
 
   if (isLoading) {
     
@@ -524,7 +504,7 @@ function Collection() {
                     className={`${styles.active__button} ${isMinting && styles.disable__button}`}
                   >
                     {conditionIsLoading && <span>Mint NFT(wait...)</span>}
-                    {!conditionIsLoading && !isMinting && <span>Mint NFT({condition?.currencyMetadata?.displayValue})</span>}
+                    {!conditionIsLoading && !isMinting && condition && <span>Mint NFT({condition[0]?.currencyMetadata?.displayValue})</span>}
                     
                     {isMinting && (
                       <ColorRing
