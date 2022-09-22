@@ -75,8 +75,8 @@ function Market() {
         {isLoading &&
           [1,2,3,4,5].map(() => {
             return (
-              <li className={styles["market__skeleton"]}>
-                <Skeleton variant = "rectangle" width="100%" height="100%"></Skeleton>
+              <li className={styles["skeleton__item"]}>
+                <Skeleton variant = "rounded" width="100%" height="100%" leftRound="1.5rem" rightRound="1.5rem"></Skeleton>
               </li>
             )
           })

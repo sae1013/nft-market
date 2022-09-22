@@ -3,18 +3,22 @@
 .container {
   padding: $header-height 2rem 0 2rem;
   background-color: #eee;
-  height: 100vh;
+  min-height: 100vh;
   background-image: linear-gradient(to bottom right,$main-bg-dark,$main-bg-light, $main-bg-medium);
   // background-color: #150940;
   position: relative;
+  padding-bottom: 5rem;
 }
 
 .list {
   display: grid;
   grid-gap: 2rem;
-  // width: 100%;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  // grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); 
+
+  .skeleton__item {
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+  }
 
   li {
     // width: 40rem;

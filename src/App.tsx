@@ -12,7 +12,7 @@ import Header from "./components/navigation/Header";
 import Footer from "./components/navigation/Footer";
 import Home from "./components/home/Home";
 import Collection from "./components/collection/Collection";
-import CollectionItem from "./components/collection/CollectionItem";
+import CollectionSkeleton from "./components/collection/CollectionSkeleton";
 import { useTranslation } from "react-i18next";
 import "./global.scss";
 import { QueryCache } from "react-query";
@@ -27,7 +27,6 @@ function App(): JSX.Element {
         <Route path="/" element={<Home />}></Route>
         <Route path="/market" element={<Market />}></Route>
         <Route path="/collection/:slug" element={<Collection />}></Route>
-        <Route path="/test" element={< CollectionItem/>}></Route>
       </Routes>
       <Footer></Footer>
     </div>

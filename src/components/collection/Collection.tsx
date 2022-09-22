@@ -20,16 +20,15 @@ import {
 import { useNavigate } from "react-router-dom";
 import styles from "./Collection.module.scss";
 import { urlFor } from "../../sanity";
-import { NonceProvider } from "react-select";
-import { setDefaultResultOrder } from "dns";
+import CollectionSkeleton from './CollectionSkeleton';
 
 const initAddress = "0x0000000000000000000000000000000000000000";
 
-interface NFT_CONDITION  {
+interface NFT_CONDITION {
   currencyMetadata: {
-    displayValue:string
-  }
-  [key:string]:string | Object
+    displayValue: string;
+  };
+  [key: string]: string | Object;
 }
 
 type NFT_ATTRIBUTE = {
@@ -422,7 +421,8 @@ function Collection() {
   slug {current}
 }
 `;
-  const { error: emptyError, data: collection } = useQuery( // sanity에서 컬렉션정보 먼저 조회
+  const { error: emptyError, data: collection } = useQuery(
+    // sanity에서 컬렉션정보 먼저 조회
     // contract의 address를 먼저 가져옴
     ["collection", slug],
     () => {
@@ -442,27 +442,38 @@ function Collection() {
     }
   );
 
-  function useMetaInfo(){
-    const supplyQuery = useQuery(["supply",slug], ()=> {
-      return nftDrop?.totalClaimedSupply();
-    }, 
-    { enabled: !!nftDrop }
-    )
-    
-    const conditionQuery = useQuery(["condition",slug], ()=> {
-      return nftDrop?.claimConditions.getAll();
-    }, 
-    { enabled: !!nftDrop }
-    )
-    return [supplyQuery,conditionQuery]
+  function useMetaInfo() {
+    const supplyQuery = useQuery(
+      ["supply", slug],
+      () => {
+        return nftDrop?.totalClaimedSupply();
+      },
+      { enabled: !!nftDrop }
+    );
+
+    const conditionQuery = useQuery(
+      ["condition", slug],
+      () => {
+        return nftDrop?.claimConditions.getAll();
+      },
+      { enabled: !!nftDrop }
+    );
+    return [supplyQuery, conditionQuery];
   }
-  const [supplyQuery,conditionQuery] = useMetaInfo();
-  const {error:supplyError,data:clamedSupply,isLoading:supplyLoading} = supplyQuery
-  const {error:conditionError,data:condition,isLoading:conditionIsLoading} = conditionQuery
+  const [supplyQuery, conditionQuery] = useMetaInfo();
+  const {
+    error: supplyError,
+    data: clamedSupply,
+    isLoading: supplyLoading,
+  } = supplyQuery;
+  const {
+    error: conditionError,
+    data: condition,
+    isLoading: conditionIsLoading,
+  } = conditionQuery;
 
   if (isLoading) {
-    
-    return <p>check..</p>;
+    return <CollectionSkeleton/>;
   }
   return (
     <>
@@ -470,7 +481,7 @@ function Collection() {
         <section
           className={styles.container}
           style={{
-            backgroundImage: `url(${urlFor(collection.previewImage).url()})`,
+            backgroundImage: `url(${urlFor(collection.previewImage).url()} )`,
           }}
         >
           <div className={styles.wrapper}>
@@ -486,26 +497,31 @@ function Collection() {
                   <img src={urlFor(collection.previewImage).url()}></img>
                 </div>
                 <h2>{collection.title}</h2>
-                {conditionError ? 
+                {conditionError ? (
                   <p>Something wrong</p>
-                  :
-                conditionIsLoading ? 
+                ) : conditionIsLoading ? (
                   <p>fetching clamed Info...</p>
-                :
+                ) : (
                   <p>
                     {clamedSupply?.toString()} / {claimedNFTs?.length} NFT's
                     clamed
                   </p>
-                }
+                )}
                 <>
                   <button
                     onClick={handleMintNFT}
                     disabled={isMinting}
-                    className={`${styles.active__button} ${isMinting && styles.disable__button}`}
+                    className={`${styles.active__button} ${
+                      isMinting && styles.disable__button
+                    }`}
                   >
                     {conditionIsLoading && <span>Mint NFT(wait...)</span>}
-                    {!conditionIsLoading && !isMinting && condition && <span>Mint NFT({condition[0]?.currencyMetadata?.displayValue})</span>}
-                    
+                    {!conditionIsLoading && !isMinting && condition && (
+                      <span>
+                        Mint NFT({condition[0]?.currencyMetadata?.displayValue})
+                      </span>
+                    )}
+
                     {isMinting && (
                       <ColorRing
                         visible={true}
@@ -544,7 +560,7 @@ function Collection() {
                       error: {
                         style: {
                           background: "red",
-                          color:"#fff"
+                          color: "#fff",
                         },
                       },
                       loading: {
