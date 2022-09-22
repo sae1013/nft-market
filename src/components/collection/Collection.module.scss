@@ -1,7 +1,5 @@
 @import "../../global.scss";
 
-@import "../../global.scss";
-
 .fullpage {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
@@ -25,7 +23,6 @@
   backdrop-filter: blur(3px);
   position: relative;
   z-index: 12;
-  // background-color: rgba(0,0,0,0.7);
   width: 40%;
   display: flex;
   flex-direction: column;
@@ -148,14 +145,10 @@
     $main-bg-medium
   );
   height: auto;
-  // scroll-snap-type: y mandatory;
-  // // overflow-y: scroll;
-  // height: 100vh;
+  scroll-snap-align: start;
   
   .wrapper {
-    overflow-y: scroll;
-    height: 100vh;
-    // height: auto;
+    
     &::-webkit-scrollbar {
       display: none; 
     }
@@ -166,7 +159,6 @@
     .section2__title {
       display: inline-block;
       font-size: 4rem;
-      // margin-left: auto;
       margin-top: 5rem;
       padding: 1rem 2rem;
       margin-bottom: 5rem;

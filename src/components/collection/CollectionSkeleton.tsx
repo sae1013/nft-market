@@ -4,12 +4,10 @@ import Skeleton from "../common/Skeleton";
 import "../../global.scss";
 
 const FullPage = styled.div`
-  /* scroll-snap-type: y mandatory; */
   overflow-y: scroll;
   height: 100vh;
 `;
 const Section1 = styled.section`
-  /* scroll-snap-align: start; */
   height: 100vh;
   width: 100%;
   background-size: contain;
