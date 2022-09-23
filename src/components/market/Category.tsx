@@ -3,15 +3,9 @@ import styled from "styled-components";
 import { categories } from '../common/category';
 
 interface CategoryItemProps {
-  active: boolean;
+  active?: boolean;
 }
-interface Props {
-  categories:{
-    key:string,
-    label:string
-  },
-  handleCategory:() => void
-}
+
 const Container = styled.div`
   font-size: 2.5rem;
   padding: 1rem 2rem;

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { ColorRing } from "react-loader-spinner";
 import { useParams } from "react-router";
 import toast, { Toaster } from "react-hot-toast";
+import {NFT_CONDITION,NFT_ATTRIBUTE,NFT_META_DATA,NFT} from '../../types/collection';
+
 import {
   useSDK,
   useNFTDrop,
@@ -9,6 +11,7 @@ import {
   useUnclaimedNFTs,
   useNFTs,
 } from "@thirdweb-dev/react";
+
 import { useQuery } from "react-query";
 import sanityClient from "../../sanity";
 import {
@@ -24,345 +27,12 @@ import CollectionSkeleton from './CollectionSkeleton';
 
 const initAddress = "0x0000000000000000000000000000000000000000";
 
-interface NFT_CONDITION {
-  currencyMetadata: {
-    displayValue: string;
-  };
-  [key: string]: string | Object;
-}
-
-type NFT_ATTRIBUTE = {
-  trait_type: string;
-  value: string;
-};
-
-type NFT_META_DATA = {
-  name: string;
-  attributes: NFT_ATTRIBUTE[];
-  description: string;
-  id: {
-    _hex: string;
-    _isBigNumber: boolean;
-  };
-  image: string;
-  uri: string;
-};
-
-type NFT = {
-  metadata: NFT_META_DATA;
-  owner: string;
-  supply: number;
-  type: string;
-};
-const mintItem: NFT[] = [
-  {
-    metadata: {
-      attributes: [
-        { trait_type: "Shirt", value: "biker" },
-        { trait_type: "Shirt", value: "biker" },
-      ],
-      description: "A YACHT APE",
-      id: {
-        _hex: "0x00",
-        _isBigNumber: true,
-      },
-      image:
-        "https://gateway.ipfscdn.io/ipfs/QmSSPrAVESgucC8aKXK7SiBWsTFzrVVTLB8YJ9zceRSTQB/0.png",
-      name: "#9",
-      uri: "ipfs://QmavhYMu1QtHPR7okEytoFD7km9aFosWJoZaanFJVgtHUp/0",
-    },
-    owner: "0x353daAD383cCc2f7293B21D33ED968c2ae65678d",
-    supply: 1,
-    type: "ERC721",
-  },
-  {
-    metadata: {
-      attributes: [
-        { trait_type: "Shirt", value: "biker" },
-        { trait_type: "Shirt", value: "biker" },
-      ],
-      description: "A YACHT APE",
-      id: {
-        _hex: "0x00",
-        _isBigNumber: true,
-      },
-      image:
-        "https://gateway.ipfscdn.io/ipfs/QmSSPrAVESgucC8aKXK7SiBWsTFzrVVTLB8YJ9zceRSTQB/0.png",
-      name: "#9",
-      uri: "ipfs://QmavhYMu1QtHPR7okEytoFD7km9aFosWJoZaanFJVgtHUp/0",
-    },
-    owner: "0x0000000000000000000000000000000000000000",
-    supply: 1,
-    type: "ERC721",
-  },
-  {
-    metadata: {
-      attributes: [
-        { trait_type: "Shirt", value: "biker" },
-        { trait_type: "Shirt", value: "biker" },
-      ],
-      description: "A YACHT APE",
-      id: {
-        _hex: "0x00",
-        _isBigNumber: true,
-      },
-      image:
-        "https://gateway.ipfscdn.io/ipfs/QmSSPrAVESgucC8aKXK7SiBWsTFzrVVTLB8YJ9zceRSTQB/0.png",
-      name: "#9",
-      uri: "ipfs://QmavhYMu1QtHPR7okEytoFD7km9aFosWJoZaanFJVgtHUp/0",
-    },
-    owner: "0x0000000000000000000000000000000000000000",
-    supply: 1,
-    type: "ERC721",
-  },
-  {
-    metadata: {
-      attributes: [
-        { trait_type: "Shirt", value: "biker" },
-        { trait_type: "Shirt", value: "biker" },
-      ],
-      description: "A YACHT APE",
-      id: {
-        _hex: "0x00",
-        _isBigNumber: true,
-      },
-      image:
-        "https://gateway.ipfscdn.io/ipfs/QmSSPrAVESgucC8aKXK7SiBWsTFzrVVTLB8YJ9zceRSTQB/0.png",
-      name: "#9",
-      uri: "ipfs://QmavhYMu1QtHPR7okEytoFD7km9aFosWJoZaanFJVgtHUp/0",
-    },
-    owner: "0x0000000000000000000000000000000000000000",
-    supply: 1,
-    type: "ERC721",
-  },
-  {
-    metadata: {
-      attributes: [
-        { trait_type: "Shirt", value: "biker" },
-        { trait_type: "Shirt", value: "biker" },
-      ],
-      description: "A YACHT APE",
-      id: {
-        _hex: "0x00",
-        _isBigNumber: true,
-      },
-      image:
-        "https://gateway.ipfscdn.io/ipfs/QmSSPrAVESgucC8aKXK7SiBWsTFzrVVTLB8YJ9zceRSTQB/0.png",
-      name: "#9",
-      uri: "ipfs://QmavhYMu1QtHPR7okEytoFD7km9aFosWJoZaanFJVgtHUp/0",
-    },
-    owner: "0x0000000000000000000000000000000000000000",
-    supply: 1,
-    type: "ERC721",
-  },
-  {
-    metadata: {
-      attributes: [
-        { trait_type: "Shirt", value: "biker" },
-        { trait_type: "Shirt", value: "biker" },
-      ],
-      description: "A YACHT APE",
-      id: {
-        _hex: "0x00",
-        _isBigNumber: true,
-      },
-      image:
-        "https://gateway.ipfscdn.io/ipfs/QmSSPrAVESgucC8aKXK7SiBWsTFzrVVTLB8YJ9zceRSTQB/0.png",
-      name: "#9",
-      uri: "ipfs://QmavhYMu1QtHPR7okEytoFD7km9aFosWJoZaanFJVgtHUp/0",
-    },
-    owner: "0x0000000000000000000000000000000000000000",
-    supply: 1,
-    type: "ERC721",
-  },
-  {
-    metadata: {
-      attributes: [
-        { trait_type: "Shirt", value: "biker" },
-        { trait_type: "Shirt", value: "biker" },
-      ],
-      description: "A YACHT APE",
-      id: {
-        _hex: "0x00",
-        _isBigNumber: true,
-      },
-      image:
-        "https://gateway.ipfscdn.io/ipfs/QmSSPrAVESgucC8aKXK7SiBWsTFzrVVTLB8YJ9zceRSTQB/0.png",
-      name: "#9",
-      uri: "ipfs://QmavhYMu1QtHPR7okEytoFD7km9aFosWJoZaanFJVgtHUp/0",
-    },
-    owner: "0x0000000000000000000000000000000000000000",
-    supply: 1,
-    type: "ERC721",
-  },
-  {
-    metadata: {
-      attributes: [
-        { trait_type: "Shirt", value: "biker" },
-        { trait_type: "Shirt", value: "biker" },
-      ],
-      description: "A YACHT APE",
-      id: {
-        _hex: "0x00",
-        _isBigNumber: true,
-      },
-      image:
-        "https://gateway.ipfscdn.io/ipfs/QmSSPrAVESgucC8aKXK7SiBWsTFzrVVTLB8YJ9zceRSTQB/0.png",
-      name: "#9",
-      uri: "ipfs://QmavhYMu1QtHPR7okEytoFD7km9aFosWJoZaanFJVgtHUp/0",
-    },
-    owner: "0x353daAD383cCc2f7293B21D33ED968c2ae65678d",
-    supply: 1,
-    type: "ERC721",
-  },
-  {
-    metadata: {
-      attributes: [
-        { trait_type: "Shirt", value: "biker" },
-        { trait_type: "Shirt", value: "biker" },
-      ],
-      description: "A YACHT APE",
-      id: {
-        _hex: "0x00",
-        _isBigNumber: true,
-      },
-      image:
-        "https://gateway.ipfscdn.io/ipfs/QmSSPrAVESgucC8aKXK7SiBWsTFzrVVTLB8YJ9zceRSTQB/0.png",
-      name: "#9",
-      uri: "ipfs://QmavhYMu1QtHPR7okEytoFD7km9aFosWJoZaanFJVgtHUp/0",
-    },
-    owner: "0x353daAD383cCc2f7293B21D33ED968c2ae65678d",
-    supply: 1,
-    type: "ERC721",
-  },
-  {
-    metadata: {
-      attributes: [
-        { trait_type: "Shirt", value: "biker" },
-        { trait_type: "Shirt", value: "biker" },
-      ],
-      description: "A YACHT APE",
-      id: {
-        _hex: "0x00",
-        _isBigNumber: true,
-      },
-      image:
-        "https://gateway.ipfscdn.io/ipfs/QmSSPrAVESgucC8aKXK7SiBWsTFzrVVTLB8YJ9zceRSTQB/0.png",
-      name: "#9",
-      uri: "ipfs://QmavhYMu1QtHPR7okEytoFD7km9aFosWJoZaanFJVgtHUp/0",
-    },
-    owner: "0x353daAD383cCc2f7293B21D33ED968c2ae65678d",
-    supply: 1,
-    type: "ERC721",
-  },
-  {
-    metadata: {
-      attributes: [
-        { trait_type: "Shirt", value: "biker" },
-        { trait_type: "Shirt", value: "biker" },
-      ],
-      description: "A YACHT APE",
-      id: {
-        _hex: "0x00",
-        _isBigNumber: true,
-      },
-      image:
-        "https://gateway.ipfscdn.io/ipfs/QmSSPrAVESgucC8aKXK7SiBWsTFzrVVTLB8YJ9zceRSTQB/0.png",
-      name: "#9",
-      uri: "ipfs://QmavhYMu1QtHPR7okEytoFD7km9aFosWJoZaanFJVgtHUp/0",
-    },
-    owner: "0x353daAD383cCc2f7293B21D33ED968c2ae65678d",
-    supply: 1,
-    type: "ERC721",
-  },
-  {
-    metadata: {
-      attributes: [
-        { trait_type: "Shirt", value: "biker" },
-        { trait_type: "Shirt", value: "biker" },
-      ],
-      description: "A YACHT APE",
-      id: {
-        _hex: "0x00",
-        _isBigNumber: true,
-      },
-      image:
-        "https://gateway.ipfscdn.io/ipfs/QmSSPrAVESgucC8aKXK7SiBWsTFzrVVTLB8YJ9zceRSTQB/0.png",
-      name: "#9",
-      uri: "ipfs://QmavhYMu1QtHPR7okEytoFD7km9aFosWJoZaanFJVgtHUp/0",
-    },
-    owner: "0x353daAD383cCc2f7293B21D33ED968c2ae65678d",
-    supply: 1,
-    type: "ERC721",
-  },
-  {
-    metadata: {
-      attributes: [
-        { trait_type: "Shirt", value: "biker" },
-        { trait_type: "Shirt", value: "biker" },
-      ],
-      description: "A YACHT APE",
-      id: {
-        _hex: "0x00",
-        _isBigNumber: true,
-      },
-      image:
-        "https://gateway.ipfscdn.io/ipfs/QmSSPrAVESgucC8aKXK7SiBWsTFzrVVTLB8YJ9zceRSTQB/0.png",
-      name: "#9",
-      uri: "ipfs://QmavhYMu1QtHPR7okEytoFD7km9aFosWJoZaanFJVgtHUp/0",
-    },
-    owner: "0x353daAD383cCc2f7293B21D33ED968c2ae65678d",
-    supply: 1,
-    type: "ERC721",
-  },
-  {
-    metadata: {
-      attributes: [
-        { trait_type: "Shirt", value: "biker" },
-        { trait_type: "Shirt", value: "biker" },
-      ],
-      description: "A YACHT APE",
-      id: {
-        _hex: "0x00",
-        _isBigNumber: true,
-      },
-      image:
-        "https://gateway.ipfscdn.io/ipfs/QmSSPrAVESgucC8aKXK7SiBWsTFzrVVTLB8YJ9zceRSTQB/0.png",
-      name: "#9",
-      uri: "ipfs://QmavhYMu1QtHPR7okEytoFD7km9aFosWJoZaanFJVgtHUp/0",
-    },
-    owner: "0x353daAD383cCc2f7293B21D33ED968c2ae65678d",
-    supply: 1,
-    type: "ERC721",
-  },
-  {
-    metadata: {
-      attributes: [
-        { trait_type: "Shirt", value: "biker" },
-        { trait_type: "Shirt", value: "biker" },
-      ],
-      description: "A YACHT APE",
-      id: {
-        _hex: "0x00",
-        _isBigNumber: true,
-      },
-      image:
-        "https://gateway.ipfscdn.io/ipfs/QmSSPrAVESgucC8aKXK7SiBWsTFzrVVTLB8YJ9zceRSTQB/0.png",
-      name: "#9",
-      uri: "ipfs://QmavhYMu1QtHPR7okEytoFD7km9aFosWJoZaanFJVgtHUp/0",
-    },
-    owner: "0x353daAD383cCc2f7293B21D33ED968c2ae65678d",
-    supply: 1,
-    type: "ERC721",
-  },
-];
 
 function Collection() {
   const navigate = useNavigate();
   const address = useAddress();
   const { slug } = useParams();
   const [contractAddress, setContractAddress] = useState<string>();
-  const sdk = useSDK();
   const nftDrop = useNFTDrop(contractAddress); // sanity에서 주소를 먼저 가져오고, third web에 요청
   const { data: claimedNFTs, isLoading } = useClaimedNFTs(nftDrop); // thirdWeb, nftDrop의 모든 claim아이템 조회
   const [isMinting, setIsMinting] = useState<boolean>(false);
@@ -461,11 +131,13 @@ function Collection() {
     return [supplyQuery, conditionQuery];
   }
   const [supplyQuery, conditionQuery] = useMetaInfo();
+
   const {
     error: supplyError,
     data: clamedSupply,
     isLoading: supplyLoading,
   } = supplyQuery;
+
   const {
     error: conditionError,
     data: condition,

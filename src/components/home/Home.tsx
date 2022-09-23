@@ -8,7 +8,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import '../Swiper.scss';
-
+import {KeyVisualItem} from '../../types/common';
 
 function Home() {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ function Home() {
     navigate(`/market`);
   };
 
-  const keyVisual = [
+  const keyVisual:KeyVisualItem[] = [
     {
       badge:'new',
       imageSrc:"/collectibles.png",
@@ -35,7 +35,7 @@ function Home() {
   
   return (
     <section className={styles["container"]}>
-      {/* <h1 className={styles["title"]}>Mint, Showcase NFTs</h1> */}
+
       <button onClick={goMarket}>
         <span className={styles["icon"]}>👉</span>Play Market
       </button>
@@ -65,18 +65,7 @@ function Home() {
         </Swiper>
       </div>
     </section>
-    // <div className={styles["container"]}>
-    //   <section id="1" className={styles["landing-top"]}>
-    //     <div dangerouslySetInnerHTML={{ __html: t("common.intro") }}></div>
-        // {/* <button onClick={goMarket}>
-        //   <span className={styles["icon"]}>👉</span>Play Market
-        // </button> */}
 
-    //     {/* <div className={styles['float-banner']}>
-    //       <span></span>
-    //     </div> */}
-    //   </section>
-    // </div>
   );
 }
 

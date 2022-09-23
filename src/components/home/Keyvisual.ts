@@ -1,9 +1,9 @@
-
 interface keyVisualItem {
   imageSrc:string,
   description:string,
   date:string
 }
+
 export const keyVisual = [
   {
     imageSrc:'',
@@ -11,5 +11,5 @@ export const keyVisual = [
     data:'2022-03-05'
 
   },
-  
+
 ]
