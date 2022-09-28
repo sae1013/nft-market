@@ -17,11 +17,12 @@ import Provider from "./context/provider";
 import { haltContext } from "./context/context";
 import HaltLoginProvider from "./context/provider";
 
-// const Context = React.createContext<string>('light');
 
 function App(): JSX.Element {
   const { t, i18n } = useTranslation();
-
+  React.useEffect(() => {
+    console.log('App rerendering')
+  })
   return (
     <div className="App">
       <HaltLoginProvider>

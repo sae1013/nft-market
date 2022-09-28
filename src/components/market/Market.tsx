@@ -72,7 +72,7 @@ function Market() {
       ></Category>
       <ul className={styles["list"]}>
         {isLoading &&
-          new Array(5).map((index) => {
+          new Array(5).fill(1).map((index) => {
             return (
               <li key = {index} className={styles["skeleton__item"]}>
                 <Skeleton variant = "rounded" width="100%" height="100%" leftRound="1.5rem" rightRound="1.5rem"></Skeleton>

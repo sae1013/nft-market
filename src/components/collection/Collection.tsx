@@ -24,6 +24,8 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Collection.module.scss";
 import { urlFor } from "../../sanity";
 import CollectionSkeleton from "./CollectionSkeleton";
+import {haltContext} from "../../context/context";
+import {haltLoginContextType} from "../../types/index";
 
 const initAddress = "0x0000000000000000000000000000000000000000";
 
@@ -35,6 +37,7 @@ function Collection() {
   const nftDrop = useNFTDrop(contractAddress); // sanity에서 주소를 먼저 가져오고, third web에 요청
   const { data: claimedNFTs, isLoading } = useClaimedNFTs(nftDrop); // thirdWeb, nftDrop의 모든 claim아이템 조회
   const [isMinting, setIsMinting] = useState<boolean>(false);
+  const ctx = React.useContext<haltLoginContextType>(haltContext);
 
   const handleMintNFT = async () => {
     let errorToastId;
@@ -59,6 +62,8 @@ function Collection() {
       setIsMinting(true);
 
       const quantity = 1;
+      //여기서 로그인 비활성화
+      ctx.haltLoginHandler(true);
       const tx = await nftDrop?.claimTo(address!, quantity);
       if (tx) {
         const receipt = tx[0]!.receipt;
@@ -74,6 +79,7 @@ function Collection() {
         duration: 3000,
       });
     }
+    ctx.haltLoginHandler(false);
     setIsMinting(false);
   };
 

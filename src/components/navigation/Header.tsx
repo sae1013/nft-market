@@ -23,11 +23,14 @@ const LoginButton = styled.button`
   color: #eee;
   transition: all 0.2s ease;
   cursor: pointer;
-
+  opacity: ${props => props.disabled ? 0.6 : 1};
+  box-shadow: ${props => props.disabled ? undefined :'0px 0px 5px #000'};
+  
   &:hover {
     opacity: 0.6;
     box-shadow: 0px 0px 5px #000;
   }
+  
 `;
 
 function Header(props) {
@@ -36,7 +39,7 @@ function Header(props) {
   const disconnect = useDisconnect();
   const { t, i18n } = useTranslation();
   const ctx = useContext(haltContext);
-  console.log('ctx',ctx)
+
   const loginHandler = (e: React.MouseEvent<HTMLElement>) => {
     try {
       connectWithMetamask();
@@ -76,11 +79,11 @@ function Header(props) {
               0,
               6
             )}...${address.slice(-5)}`}</span>
-            <LoginButton onClick={logoutHandler}>로그아웃</LoginButton>
+            <LoginButton disabled= {ctx.isHaltLogin} onClick={logoutHandler}>로그아웃</LoginButton>
           </div>
         ) : (
           <div>
-            <LoginButton onClick={loginHandler}>지갑 로그인</LoginButton>
+            <LoginButton disabled= {ctx.isHaltLogin} onClick={loginHandler}>지갑 로그인</LoginButton>
           </div>
         )}
         <div className={styles["select-wrapper"]}>
