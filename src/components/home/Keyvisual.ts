@@ -1,15 +1,25 @@
-interface keyVisualItem {
-  imageSrc:string,
-  description:string,
-  date:string
-}
+import {KeyVisualType} from "../../types";
 
-export const keyVisual = [
+export const keyVisual:KeyVisualType[] = [
   {
-    imageSrc:'',
-    description:'hello',
-    data:'2022-03-05'
-
+    id:'1',
+    badge:'new',
+    imageSrc:"keyvisual-images/collectibles.png",
+    description:'Collectable NFTs',
+    date:'2022-03-05'
   },
-
+  {
+    id:'2',
+    badge:'upcoming',
+    imageSrc:"keyvisual-images/art.png",
+    description:'Art NFTs',
+    date:'2022-03-05'
+  },
+  {
+    id:'3',
+    badge:'upcoming',
+    imageSrc:"keyvisual-images/sports.png",
+    description:'Sports NFTs',
+    date:'2022-03-05'
+  }
 ]

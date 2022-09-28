@@ -1,41 +1,31 @@
-
-export interface NFT_CONDITION {
-    currencyMetadata: {
-        displayValue: string;
-    };
-
-    [key: string]: string | Object;
+interface Image {
+    asset: {
+        url: string
+    }
 }
 
-export interface NFT_META_DATA {
-    name: string;
-    attributes: NFT_ATTRIBUTE[];
-    description: string;
-    id: {
-        _hex: string;
-        _isBigNumber: boolean;
-    };
-    image: string;
-    uri: string;
-
+export interface Creator {
+    _id?:string,
+    name?:string,
+    address?:string,
+    slug?: {
+        current:string
+    },
+    image?: Image,
+    bio?:string
 }
 
-export interface NFT_ATTRIBUTE {
-    trait_type: string;
-    value: string;
-};
-
-export interface NFT {
-    metadata: NFT_META_DATA;
-    owner: string;
-    supply: number;
-    type: string;
-};
-
-export interface NFT_CONDITION {
-    currencyMetadata: {
-        displayValue: string;
-    };
-
-    [key: string]: string | Object;
+export interface Collection {
+    _id: string,
+    address:string,
+    creator: Creator,
+    description:string,
+    mainImage:Image,
+    previewImage:Image,
+    nftCollectionName:string,
+    slug:{
+        current:string
+    },
+    title:string
 }
+

@@ -1,15 +1,14 @@
 import React, { useEffect, useCallback, useState } from "react";
 import styles from "./Market.module.scss";
 import sanityClient from "../../sanity";
-import { Collection } from "../../utils/types/sanityTyping";
 import { useQuery } from "react-query";
 import { urlFor } from "../../sanity";
 import Category from "./Category";
 import { useNavigate } from "react-router-dom";
 import { categories } from "../common/category";
 import Skeleton from '../common/Skeleton';
+import {Collection} from '../../types/collection';
 
-interface Error {}
 
 function Market() {
   const navigate = useNavigate();
@@ -73,9 +72,9 @@ function Market() {
       ></Category>
       <ul className={styles["list"]}>
         {isLoading &&
-          [1,2,3,4,5].map(() => {
+          new Array(5).map((index) => {
             return (
-              <li className={styles["skeleton__item"]}>
+              <li key = {index} className={styles["skeleton__item"]}>
                 <Skeleton variant = "rounded" width="100%" height="100%" leftRound="1.5rem" rightRound="1.5rem"></Skeleton>
               </li>
             )

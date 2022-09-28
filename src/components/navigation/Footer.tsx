@@ -8,6 +8,7 @@ interface FooterProps {
 
 function Footer() {
   const { i18n } = useTranslation();
+
   return (
     <div
       onClick={() => {

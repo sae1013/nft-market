@@ -2,40 +2,24 @@ import React from "react";
 import styles from "./Home.module.scss";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import {Swiper, SwiperSlide} from 'swiper/react';
-import SwiperCore , {Navigation, Pagination,Autoplay} from 'swiper';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import '../Swiper.scss';
-import {KeyVisualItem} from '../../types/common';
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "../Swiper.scss";
+import { keyVisual } from "./Keyvisual";
 
 function Home() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  
+
   const goMarket = (e: React.MouseEvent) => {
     navigate(`/market`);
   };
 
-  const keyVisual:KeyVisualItem[] = [
-    {
-      badge:'new',
-      imageSrc:"/collectibles.png",
-      description:'test..',
-      date:'2022-03-05'
-    },
-    {
-      badge:'upcoming',
-      imageSrc:"/collectibles.png",
-      description:'test..',
-      date:'2022-03-05'
-    }
-  ]
-  
   return (
     <section className={styles["container"]}>
-
       <button onClick={goMarket}>
         <span className={styles["icon"]}>👉</span>Play Market
       </button>
@@ -48,24 +32,34 @@ function Home() {
           pagination={{ clickable: true }}
         >
           {keyVisual.map((keyVisualItem) => (
-            <SwiperSlide>
-              <div className="item" style={{backgroundImage:`url(${keyVisualItem.imageSrc})`}}>
+            <SwiperSlide key={keyVisualItem.id}>
+              <div
+                className="item"
+                style={{ backgroundImage: `url(${keyVisualItem.imageSrc})` }}
+              >
                 <div className="backdrop">
-                  <div className="keyvisual__title">Collectable NFT</div>
-                  <div className="keyvisual__date">Wed,july 25th</div>
-                  {keyVisualItem.badge === 'new' ? 
-                  <span className="badge new">New</span>  
-                  :
-                  <span className="badge upcomming">Upcomming</span>
-                }
+                  <div className="keyvisual__title">
+                    {keyVisualItem.description}
+                  </div>
+                  <div className="keyvisual__date">{keyVisualItem.date}</div>
+                  {keyVisualItem.badge === "new" ? (
+                    <span className="badge new">
+                      {keyVisualItem.badge[0].toUpperCase() +
+                        keyVisualItem.badge.slice(1)}
+                    </span>
+                  ) : (
+                    <span className="badge upcomming">
+                      {keyVisualItem.badge[0].toUpperCase() +
+                        keyVisualItem.badge.slice(1)}
+                    </span>
+                  )}
                 </div>
               </div>
-          </SwiperSlide>
+            </SwiperSlide>
           ))}
         </Swiper>
       </div>
     </section>
-
   );
 }
 

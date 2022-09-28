@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ColorRing } from "react-loader-spinner";
 import { useParams } from "react-router";
 import toast, { Toaster } from "react-hot-toast";
-import {NFT_CONDITION,NFT_ATTRIBUTE,NFT_META_DATA,NFT} from '../../types/collection';
+import { NFT_SUPPLY_TYPE, NFT, Error, NFT_CONDITION } from "../../types/index";
 
 import {
   useSDK,
@@ -23,10 +23,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import styles from "./Collection.module.scss";
 import { urlFor } from "../../sanity";
-import CollectionSkeleton from './CollectionSkeleton';
+import CollectionSkeleton from "./CollectionSkeleton";
 
 const initAddress = "0x0000000000000000000000000000000000000000";
-
 
 function Collection() {
   const navigate = useNavigate();
@@ -62,8 +61,8 @@ function Collection() {
       const quantity = 1;
       const tx = await nftDrop?.claimTo(address!, quantity);
       if (tx) {
-        const receipt = tx[0]!.receipt; // the transaction receipt
-        const claimedNFT = await tx[0].data(); // (optional) get the claimed NFT metadata
+        const receipt = tx[0]!.receipt;
+        const claimedNFT = await tx[0].data();
         loadingToastId && toast.dismiss(loadingToastId);
         toast.success("success", {
           duration: 3000,
@@ -113,7 +112,7 @@ function Collection() {
   );
 
   function useMetaInfo() {
-    const supplyQuery = useQuery(
+    const supplyQuery = useQuery<NFT_SUPPLY_TYPE | undefined | Error>(
       ["supply", slug],
       () => {
         return nftDrop?.totalClaimedSupply();
@@ -121,7 +120,7 @@ function Collection() {
       { enabled: !!nftDrop }
     );
 
-    const conditionQuery = useQuery(
+    const conditionQuery = useQuery<NFT_CONDITION[] | undefined | Error>(
       ["condition", slug],
       () => {
         return nftDrop?.claimConditions.getAll();
@@ -130,6 +129,7 @@ function Collection() {
     );
     return [supplyQuery, conditionQuery];
   }
+
   const [supplyQuery, conditionQuery] = useMetaInfo();
 
   const {
@@ -145,7 +145,7 @@ function Collection() {
   } = conditionQuery;
 
   if (isLoading) {
-    return <CollectionSkeleton/>;
+    return <CollectionSkeleton />;
   }
   return (
     <>
@@ -227,6 +227,7 @@ function Collection() {
                       success: {
                         style: {
                           background: "green",
+                          color: "#fff",
                         },
                       },
                       error: {
@@ -252,9 +253,10 @@ function Collection() {
           <div className={styles.wrapper}>
             <h1 className={styles.section2__title}>Available</h1>
             <ul className={styles.grid}>
-              {claimedNFTs?.map((nft) => {
+              {claimedNFTs?.map((nft, index) => {
                 return (
                   <li
+                    key={index}
                     className={`${styles.grid__item} ${
                       nft.owner !== initAddress ? styles.clamed : ""
                     }`}

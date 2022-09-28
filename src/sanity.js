@@ -2,8 +2,8 @@ import sanityClient from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
 
 export default sanityClient({
-  projectId: process.env.REACT_APP_PROJECT_ID, // find this at manage.sanity.io or in your sanity.json
-  dataset: process.env.REACT_APP_ENVIRONMENT || "production", // this is from those question during 'sanity init'
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  dataset: process.env.REACT_APP_ENVIRONMENT || "production",
   useCdn: true,
 });
 
