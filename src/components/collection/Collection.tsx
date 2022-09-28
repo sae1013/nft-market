@@ -62,8 +62,7 @@ function Collection() {
       setIsMinting(true);
 
       const quantity = 1;
-      //여기서 로그인 비활성화
-      ctx.haltLoginHandler(true);
+      ctx.haltLoginHandler(true); // 결제시간동안 로그아웃 지연
       const tx = await nftDrop?.claimTo(address!, quantity);
       if (tx) {
         const receipt = tx[0]!.receipt;

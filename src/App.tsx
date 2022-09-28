@@ -20,9 +20,7 @@ import HaltLoginProvider from "./context/provider";
 
 function App(): JSX.Element {
   const { t, i18n } = useTranslation();
-  React.useEffect(() => {
-    console.log('App rerendering')
-  })
+
   return (
     <div className="App">
       <HaltLoginProvider>
