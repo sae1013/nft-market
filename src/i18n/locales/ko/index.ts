@@ -1,6 +1,9 @@
 import common from './common';
+import category from './category';
+import market from './market';
 
 export default {
-  "common": common,
-  "market":null,
+  "common":common,
+  "category":category,
+  "market":market
 }

@@ -1,5 +1,8 @@
 export default {
-  "intro":"NFT 민팅 마켓에 참여하세요!",
-  "language_en": "English",
-  "language_ko": "한국어",
-}
+  intro: "Awesome NFT Minting Market",
+  language_en: "English",
+  language_ko: "한국어",
+  login: "Wallet Login",
+  logout: "Logout",
+  go_market: "Go Market",
+};

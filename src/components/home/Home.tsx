@@ -21,7 +21,7 @@ function Home() {
   return (
     <section className={styles["container"]}>
       <button onClick={goMarket}>
-        <span className={styles["icon"]}>👉</span>Play Market
+        <span className={styles["icon"]}>👉</span>{t('common.go_market')}
       </button>
       <div className="keyvisual__container">
         <Swiper

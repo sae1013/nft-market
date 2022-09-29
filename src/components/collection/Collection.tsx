@@ -3,7 +3,7 @@ import { ColorRing } from "react-loader-spinner";
 import { useParams } from "react-router";
 import toast, { Toaster } from "react-hot-toast";
 import { NFT_SUPPLY_TYPE, NFT, Error, NFT_CONDITION } from "../../types/index";
-
+import {useTranslation} from "react-i18next";
 import {
   useSDK,
   useNFTDrop,
@@ -38,6 +38,7 @@ function Collection() {
   const { data: claimedNFTs, isLoading } = useClaimedNFTs(nftDrop); // thirdWeb, nftDrop의 모든 claim아이템 조회
   const [isMinting, setIsMinting] = useState<boolean>(false);
   const ctx = React.useContext<haltLoginContextType>(haltContext);
+  const {t} = useTranslation();
 
   const handleMintNFT = async () => {
     let errorToastId;
@@ -256,7 +257,7 @@ function Collection() {
 
         <section className={`${styles.container2}`}>
           <div className={styles.wrapper}>
-            <h1 className={styles.section2__title}>Available</h1>
+            <h1 className={styles.section2__title}>{t('market.available')}</h1>
             <ul className={styles.grid}>
               {claimedNFTs?.map((nft, index) => {
                 return (

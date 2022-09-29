@@ -79,11 +79,11 @@ function Header(props) {
               0,
               6
             )}...${address.slice(-5)}`}</span>
-            <LoginButton disabled= {ctx.isHaltLogin} onClick={logoutHandler}>로그아웃</LoginButton>
+            <LoginButton disabled= {ctx.isHaltLogin} onClick={logoutHandler}>{t('common.logout')}</LoginButton>
           </div>
         ) : (
           <div>
-            <LoginButton disabled= {ctx.isHaltLogin} onClick={loginHandler}>지갑 로그인</LoginButton>
+            <LoginButton disabled= {ctx.isHaltLogin} onClick={loginHandler}>{t('common.login')}</LoginButton>
           </div>
         )}
         <div className={styles["select-wrapper"]}>

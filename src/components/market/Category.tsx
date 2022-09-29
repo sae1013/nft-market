@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { categories } from "../common/category";
+import {useTranslation} from "react-i18next";
 
 interface CategoryItemProps {
   active?: boolean;
@@ -40,6 +41,7 @@ const CategoryItem = styled.li<CategoryItemProps>`
 `;
 
 function Category({ selectedCategory, handleCategory }) {
+  const {t} = useTranslation();
   const onChangeCategory = (e: React.MouseEvent) => {
     const key = e.currentTarget.getAttribute("data-key");
     const label = e.currentTarget.getAttribute("data-label");
@@ -60,7 +62,7 @@ function Category({ selectedCategory, handleCategory }) {
               onClick={onChangeCategory}
               active={key === selectedCategory}
             >
-              <span>{label.charAt(0).toUpperCase() + label.slice(1)}</span>
+              <span>{t(`category.${label}`)}</span>
             </CategoryItem>
           );
         })}
