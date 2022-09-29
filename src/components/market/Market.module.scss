@@ -14,7 +14,9 @@
   display: grid;
   grid-gap: 2rem;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); 
-
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(80%, 1fr));
+  }
   .skeleton__item {
     border-top-left-radius: 1.5rem;
     border-top-right-radius: 1.5rem;

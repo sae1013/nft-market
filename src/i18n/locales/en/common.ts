@@ -5,4 +5,5 @@ export default {
   login: "Wallet Login",
   logout: "Logout",
   go_market: "Go Market",
+  explore:'Explore'
 };

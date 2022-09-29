@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router";
 import styles from "./Header.module.scss";
 import styled from "styled-components";
 import SelectBox from "../common/SelectBox";
@@ -6,14 +7,14 @@ import { useTranslation } from "react-i18next";
 import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
 import { CategoryOption } from "../../types";
 import toast, { Toaster } from "react-hot-toast";
-import {haltContext} from "../../context/context";
+import { haltContext } from "../../context/context";
 
 enum LANGUAGE {
   "EN" = "en-EN",
   "KR" = "ko-KR",
 }
 
-const LoginButton = styled.button`
+const Button = styled.button`
   outline: none;
   background: none;
   padding: 10px 20px;
@@ -23,15 +24,17 @@ const LoginButton = styled.button`
   color: #eee;
   transition: all 0.2s ease;
   cursor: pointer;
-  opacity: ${props => props.disabled ? 0.6 : 1};
-  box-shadow: ${props => props.disabled ? undefined :'0px 0px 5px #000'};
-  
+  opacity: ${(props) => (props.disabled ? 0.6 : 1)};
+  box-shadow: ${(props) => (props.disabled ? undefined : "0px 0px 5px #000")};
+
   &:hover {
     opacity: 0.6;
     box-shadow: 0px 0px 5px #000;
   }
-  
 `;
+const LoginButton = styled(Button)``;
+
+const ExploreButton = styled(Button)``;
 
 function Header(props) {
   const connectWithMetamask = useMetamask();
@@ -39,18 +42,25 @@ function Header(props) {
   const disconnect = useDisconnect();
   const { t, i18n } = useTranslation();
   const ctx = useContext(haltContext);
-
+  const navigate = useNavigate();
   const loginHandler = (e: React.MouseEvent<HTMLElement>) => {
     try {
       connectWithMetamask();
     } catch (err) {
-      window.alert(err)
+      window.alert(err);
     }
+  };
 
+  const goHome = () => {
+    navigate("/");
   };
 
   const logoutHandler = (e) => {
     disconnect();
+  };
+
+  const goCollection = (e) => {
+    navigate("/market");
   };
 
   const handleChangeTrans = (option?: CategoryOption | null) => {
@@ -73,19 +83,32 @@ function Header(props) {
   return (
     <>
       <div className={styles.container}>
+        <div className={styles.logo} onClick={goHome}>
+          NFT
+        </div>
+
         {address ? (
           <div>
             <span className={styles["address"]}>{`${address.slice(
               0,
               6
             )}...${address.slice(-5)}`}</span>
-            <LoginButton disabled= {ctx.isHaltLogin} onClick={logoutHandler}>{t('common.logout')}</LoginButton>
+            <LoginButton disabled={ctx.isHaltLogin} onClick={logoutHandler}>
+              {t("common.logout")}
+            </LoginButton>
           </div>
         ) : (
           <div>
-            <LoginButton disabled= {ctx.isHaltLogin} onClick={loginHandler}>{t('common.login')}</LoginButton>
+            <LoginButton disabled={ctx.isHaltLogin} onClick={loginHandler}>
+              {t("common.login")}
+            </LoginButton>
           </div>
         )}
+        <div>
+          <ExploreButton disabled={ctx.isHaltLogin} onClick={goCollection}>
+            {t("common.explore")}
+          </ExploreButton>
+        </div>
         <div className={styles["select-wrapper"]}>
           <SelectBox onChange={handleChangeTrans} />
         </div>

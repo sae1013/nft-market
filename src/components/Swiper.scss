@@ -1,3 +1,5 @@
+@import "../global.scss";
+
 .container {
   overflow: hidden;
 
@@ -27,6 +29,9 @@
     padding: 4rem;
     position: absolute;
     z-index: 1;
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
   }
 
   .swiper-button-next {
@@ -39,6 +44,9 @@
     background-color: rgba(255,255,255,0.5);
     padding: 4rem;
     border-radius: 50%;
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
   }
 
   .swiper-pagination {
@@ -70,31 +78,38 @@
           width: 100%;
           height: 100%;
           display: flex;
-          flex-direction: column;
+          justify-content: center;
           align-items: center;
-
-          .badge {
-            position: absolute;
-            top: 40%;
-          }
 
         }
 
         .keyvisual {
+          width: 70%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
           &__title {
-            position: absolute;
-            top: 20%;
+            margin-bottom: 1rem;
             font-size: 3.5rem;
             color: #fff;
+            @media screen and (max-width: 768px) {
+              font-size: 2rem;
+            }
           }
           &__date {
-            top:30%;
-            position: absolute;
             font-size: 2rem;
+            margin-bottom: 1rem;
             color: #fff;
-            
+            @media screen and (max-width:768px)  {
+              font-size: 1.5rem;
+            }
           }
-          
+          .badge {
+
+          }
+
         }
       
       }
@@ -117,8 +132,7 @@
   &.upcomming {
     background-color: plum;
   }
-}
-
-@media screen and (max-width:768px)  {
-  // 모바일 버전으로 간다. 
+  @media screen and (max-width: 768px)  {
+    padding: .5rem 2rem;
+  }
 }

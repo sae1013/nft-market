@@ -14,6 +14,9 @@ const Container = styled.div`
   margin-bottom: 2rem;
   text-align: center;
   margin: 4rem 2rem;
+  @media screen and (max-width:768px) {
+    font-size: 1.7rem;
+  }
 `;
 
 const CategoryList = styled.ul`

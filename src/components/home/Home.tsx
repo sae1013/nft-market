@@ -21,7 +21,8 @@ function Home() {
   return (
     <section className={styles["container"]}>
       <button onClick={goMarket}>
-        <span className={styles["icon"]}>👉</span>{t('common.go_market')}
+        <span className={styles["icon"]}>👉</span>
+        {t("common.go_market")}
       </button>
       <div className="keyvisual__container">
         <Swiper
@@ -38,21 +39,23 @@ function Home() {
                 style={{ backgroundImage: `url(${keyVisualItem.imageSrc})` }}
               >
                 <div className="backdrop">
-                  <div className="keyvisual__title">
-                    {keyVisualItem.description}
+                  <div className="keyvisual">
+                    <div className="keyvisual__title">
+                      {keyVisualItem.description}
+                    </div>
+                    <div className="keyvisual__date">{keyVisualItem.date}</div>
+                    {keyVisualItem.badge === "new" ? (
+                      <span className="badge new">
+                        {keyVisualItem.badge[0].toUpperCase() +
+                          keyVisualItem.badge.slice(1)}
+                      </span>
+                    ) : (
+                      <span className="badge upcomming">
+                        {keyVisualItem.badge[0].toUpperCase() +
+                          keyVisualItem.badge.slice(1)}
+                      </span>
+                    )}
                   </div>
-                  <div className="keyvisual__date">{keyVisualItem.date}</div>
-                  {keyVisualItem.badge === "new" ? (
-                    <span className="badge new">
-                      {keyVisualItem.badge[0].toUpperCase() +
-                        keyVisualItem.badge.slice(1)}
-                    </span>
-                  ) : (
-                    <span className="badge upcomming">
-                      {keyVisualItem.badge[0].toUpperCase() +
-                        keyVisualItem.badge.slice(1)}
-                    </span>
-                  )}
                 </div>
               </div>
             </SwiperSlide>
