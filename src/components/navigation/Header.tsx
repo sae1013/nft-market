@@ -54,9 +54,9 @@ function Header(props) {
       setToggle(!onToggleMenu)
   }
 
-  const loginHandler = (e: React.MouseEvent<HTMLElement>) => {
+  const loginHandler = async(e: React.MouseEvent<HTMLElement>) => {
     try {
-      connectWithMetamask();
+      await connectWithMetamask();
     } catch (err) {
       window.alert(err);
     }
