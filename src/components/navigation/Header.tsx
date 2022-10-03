@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext,useState } from "react";
 import { useNavigate } from "react-router";
 import styles from "./Header.module.scss";
 import styled from "styled-components";
@@ -6,8 +6,12 @@ import SelectBox from "../common/SelectBox";
 import { useTranslation } from "react-i18next";
 import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
 import { CategoryOption } from "../../types";
-import toast, { Toaster } from "react-hot-toast";
+import {FiMenu} from 'react-icons/fi';
+import {CgClose} from 'react-icons/cg';
+import {IconContext} from 'react-icons';
 import { haltContext } from "../../context/context";
+import { motion,AnimatePresence } from "framer-motion"
+
 
 enum LANGUAGE {
   "EN" = "en-EN",
@@ -37,12 +41,19 @@ const LoginButton = styled(Button)``;
 const ExploreButton = styled(Button)``;
 
 function Header(props) {
+  console.log()
   const connectWithMetamask = useMetamask();
   const address = useAddress();
   const disconnect = useDisconnect();
   const { t, i18n } = useTranslation();
   const ctx = useContext(haltContext);
   const navigate = useNavigate();
+  const [onToggleMenu,setToggle] = useState(false);
+
+  const handleToggleMenu = () => {
+      setToggle(!onToggleMenu)
+  }
+
   const loginHandler = (e: React.MouseEvent<HTMLElement>) => {
     try {
       connectWithMetamask();
@@ -81,39 +92,88 @@ function Header(props) {
   };
 
   return (
-    <>
-      <div className={styles.container}>
-        <div className={styles.logo} onClick={goHome}>
-          NFT
-        </div>
+    <section>
+      <div className={styles.desktop_nav}>
+        <div className={styles.container}>
+          <div className={styles.logo} onClick={goHome}>
+            NFT
+          </div>
 
-        {address ? (
-          <div>
+          {address ? ( // 주소부분
+              <div>
             <span className={styles["address"]}>{`${address.slice(
-              0,
-              6
+                0,
+                6
             )}...${address.slice(-5)}`}</span>
-            <LoginButton disabled={ctx.isHaltLogin} onClick={logoutHandler}>
-              {t("common.logout")}
-            </LoginButton>
-          </div>
-        ) : (
+                <LoginButton disabled={ctx.isHaltLogin} onClick={logoutHandler}>
+                  {t("common.logout")}
+                </LoginButton>
+              </div>
+          ) : (
+              <div>
+                <LoginButton disabled={ctx.isHaltLogin} onClick={loginHandler}>
+                  {t("common.login")}
+                </LoginButton>
+              </div>
+          )}
+
           <div>
-            <LoginButton disabled={ctx.isHaltLogin} onClick={loginHandler}>
-              {t("common.login")}
-            </LoginButton>
+            <ExploreButton disabled={ctx.isHaltLogin} onClick={goCollection}>
+              {t("common.explore")}
+            </ExploreButton>
           </div>
-        )}
-        <div>
-          <ExploreButton disabled={ctx.isHaltLogin} onClick={goCollection}>
-            {t("common.explore")}
-          </ExploreButton>
-        </div>
-        <div className={styles["select-wrapper"]}>
-          <SelectBox onChange={handleChangeTrans} />
+          <div className={styles["select-wrapper"]}>
+            <SelectBox onChange={handleChangeTrans} />
+          </div>
+
         </div>
       </div>
-    </>
+
+      <div className={styles.mobile_nav}>
+        <div className={styles.container}>
+          <div className={styles.logo} onClick={goHome}>
+            NFT
+          </div>
+          <div className={styles.menu} onClick={handleToggleMenu}>
+            {onToggleMenu ?
+
+                <IconContext.Provider value={{size:'35' ,color:'white'}}>
+                    <CgClose/>
+                </IconContext.Provider>
+                :
+
+                <IconContext.Provider value={{size:'35' ,color:'white'}}>
+                  <FiMenu/>
+                </IconContext.Provider>
+            }
+
+          </div>
+        </div>
+
+            <AnimatePresence>
+              {onToggleMenu &&
+                  <motion.div className={styles.nav_contents} initial={{right:-100}} animate={{right:0}} exit={{right:-200}}
+                  >
+                    {address && <span className={styles["address"]}>{`${address.slice(
+                        0,
+                        6
+                    )}...${address.slice(-5)}`}</span>}
+                    {address ?
+                        <LoginButton disabled={ctx.isHaltLogin} onClick={logoutHandler}>{t("common.logout")}</LoginButton>
+                        :
+                        <LoginButton disabled={ctx.isHaltLogin} onClick={loginHandler}>{t("common.login")}</LoginButton>
+                    }
+                    <ExploreButton disabled={ctx.isHaltLogin} onClick={goCollection}>{t("common.explore")}</ExploreButton>
+                    <div className={styles["select-wrapper"]}>
+                      <SelectBox onChange={handleChangeTrans} />
+                    </div>
+                  </motion.div>
+              }
+            </AnimatePresence>
+
+      </div>
+
+    </section>
   );
 }
 

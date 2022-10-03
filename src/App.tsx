@@ -18,9 +18,9 @@ import { haltContext } from "./context/context";
 import HaltLoginProvider from "./context/provider";
 
 
-function App(): JSX.Element {
+function App(props): JSX.Element {
   const { t, i18n } = useTranslation();
-
+  console.log(props.theme)
   return (
     <div className="App">
       <HaltLoginProvider>
