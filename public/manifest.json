@@ -1,6 +1,6 @@
 {
-  "short_name": "react-typescript-starter",
-  "name": "thirdweb starter project with React & TypeScript",
+  "short_name": "NFT-Minting",
+  "name": "NFT-Projdct with thirdweb & React & TypeScript",
   "icons": [
     {
       "src": "favicon.ico",
