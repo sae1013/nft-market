@@ -22,6 +22,7 @@ import {
 } from "@thirdweb-dev/react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Collection.module.scss";
+import CollectionItem from './CollectionItem';
 import { urlFor } from "../../sanity";
 import CollectionSkeleton from "./CollectionSkeleton";
 import {haltContext} from "../../context/context";
@@ -261,19 +262,7 @@ function Collection() {
             <ul className={styles.grid}>
               {claimedNFTs?.map((nft, index) => {
                 return (
-                  <li
-                    key={index}
-                    className={`${styles.grid__item} ${
-                      nft.owner !== initAddress ? styles.clamed : ""
-                    }`}
-                  >
-                    <div className={styles.image__wrap}>
-                      <img src={nft.metadata.image as string}></img>
-                    </div>
-                    <div className={styles.description}>
-                      <div className={styles.title}>{nft.metadata.name}</div>
-                    </div>
-                  </li>
+                  <CollectionItem initAddress={initAddress} key={index} owner={nft.owner} imageSrc={nft.metadata.image as string} title={nft.metadata.name as string} ></CollectionItem>
                 );
               })}
             </ul>

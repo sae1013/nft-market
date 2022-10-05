@@ -1,3 +1,6 @@
+import styles from "../components/collection/Collection.module.scss";
+import React from "react";
+
 interface Image {
     asset: {
         url: string
@@ -29,3 +32,11 @@ export interface Collection {
     title:string
 }
 
+export interface CollectionItemProp {
+    key:string | number;
+    owner:string;
+    imageSrc:string;
+    title:string;
+    initAddress:string;
+    [key]:string;
+}
