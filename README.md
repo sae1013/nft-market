@@ -12,9 +12,14 @@
 - Sanity.io
 ##### 프론트엔드
 - React, TypeScript
+
+##### 배포
+- Vercel ( https://nft-market-tau-eight.vercel.app )
+
+
+
 ##### 기타
 - i18n (다국어), Third-web(api), MetaMask(ChromeApp)
-
 
 
 ### 프로젝트 목적
@@ -45,6 +50,10 @@ https://user-images.githubusercontent.com/63229394/194038764-fefefa77-c54a-466d-
 
 #### PC & Mobile 웹뷰 
 
-https://user-images.githubusercontent.com/63229394/194080347-4d668d8f-56aa-4648-a5f4-d9c7d84e3111.mp4
+https://user-images.githubusercontent.com/63229394/194086996-65d8fe38-fd4f-4f2d-b2b0-f0f7a06e251a.mp4
+
+
+
+
 
 
