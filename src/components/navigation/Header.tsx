@@ -11,7 +11,8 @@ import {CgClose} from 'react-icons/cg';
 import {IconContext} from 'react-icons';
 import { haltContext } from "../../context/context";
 import { motion,AnimatePresence } from "framer-motion"
-
+import Toast from '../../hooks/toast/Toast'
+import {toast} from '../../hooks/toast/store';
 
 enum LANGUAGE {
   "EN" = "en-EN",
@@ -41,7 +42,7 @@ const LoginButton = styled(Button)``;
 const ExploreButton = styled(Button)``;
 
 function Header(props) {
-  console.log()
+
   const connectWithMetamask = useMetamask();
   const address = useAddress();
   const disconnect = useDisconnect();
@@ -57,9 +58,29 @@ function Header(props) {
   const loginHandler = async(e: React.MouseEvent<HTMLElement>) => {
     try {
       await connectWithMetamask();
+      toast(t('common.toast_login'),{
+        toastStyle: {
+          backgroundColor:'#367E18',
+          color:'ivory',
+          padding:'15px 20px',
+          fontSize:'13px',
+          position:'relative',
+          right:'10%',
+          width:'100px',
+          borderRadius:'20px',
+          textAlign:'center',
+        },
+        wrapperStyle: {
+          top:'0%',
+          right:'0%',
+
+        },
+        duration:1000
+      })
     } catch (err) {
       window.alert(err);
     }
+
   };
 
   const goHome = () => {
@@ -68,6 +89,25 @@ function Header(props) {
 
   const logoutHandler = (e) => {
     disconnect();
+    toast(t('common.toast_logout'),{
+      toastStyle: {
+        backgroundColor:'#EB1D36',
+        color:'ivory',
+        padding:'15px 20px',
+        fontSize:'13px',
+        position:'relative',
+        right:'10%',
+        width:'100px',
+        borderRadius:'20px',
+        textAlign:'center',
+      },
+      wrapperStyle: {
+        top:'0%',
+        right:'0%',
+
+      },
+      duration:1000
+    })
   };
 
   const goCollection = (e) => {
@@ -93,13 +133,15 @@ function Header(props) {
 
   return (
     <section>
+      <Toast></Toast>
       <div className={styles.desktop_nav}>
+
         <div className={styles.container}>
           <div className={styles.logo} onClick={goHome}>
             NFT
           </div>
 
-          {address ? ( // 주소부분
+          {address ? (
               <div>
             <span className={styles["address"]}>{`${address.slice(
                 0,
@@ -172,7 +214,6 @@ function Header(props) {
             </AnimatePresence>
 
       </div>
-
     </section>
   );
 }

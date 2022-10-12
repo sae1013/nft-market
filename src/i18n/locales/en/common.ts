@@ -5,5 +5,7 @@ export default {
   login: "Wallet Login",
   logout: "Logout",
   go_market: "Go Market",
-  explore:'Explore'
+  explore:'Explore',
+  toast_login:'Welcome',
+  toast_logout:'See you'
 };

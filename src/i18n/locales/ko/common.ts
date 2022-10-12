@@ -5,5 +5,7 @@ export default {
   login: "지갑 로그인",
   logout: "로그아웃",
   go_market: "NFT 컬렉션",
-  explore:'컬렉션'
+  explore:'컬렉션',
+  toast_login:'환영합니다',
+  toast_logout:'로그아웃'
 };
