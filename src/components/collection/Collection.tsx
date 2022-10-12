@@ -255,19 +255,22 @@ function Collection() {
             </div>
           </div>
         </section>
-
-        <section className={`${styles.container2}`}>
-          <div className={styles.wrapper}>
-            <h1 className={styles.section2__title}>{t('market.available')}</h1>
-            <ul className={styles.grid}>
-              {claimedNFTs?.map((nft, index) => {
-                return (
-                  <CollectionItem initAddress={initAddress} key={index} owner={nft.owner} imageSrc={nft.metadata.image as string} title={nft.metadata.name as string} ></CollectionItem>
-                );
-              })}
-            </ul>
-          </div>
-        </section>
+        {claimedNFTs &&
+            <React.Suspense fallback={<div>Load Images..</div>}>
+              <section className={`${styles.container2}`}>
+                <div className={styles.wrapper}>
+                  <h1 className={styles.section2__title}>{t('market.available')}</h1>
+                  <ul className={styles.grid}>
+                    {claimedNFTs?.map((nft, index) => {
+                      return (
+                          <CollectionItem initAddress={initAddress} key={index} owner={nft.owner} imageSrc={nft.metadata.image as string} title={nft.metadata.name as string} ></CollectionItem>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </section>
+            </React.Suspense>
+        }
       </div>
     </>
   );
