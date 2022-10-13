@@ -27,6 +27,9 @@ import { urlFor } from "../../sanity";
 import CollectionSkeleton from "./CollectionSkeleton";
 import {haltContext} from "../../context/context";
 import {haltLoginContextType} from "../../types/index";
+// import DropList from './DropList';
+
+const DropList = React.lazy(() => import('./DropList'));
 
 const initAddress = "0x0000000000000000000000000000000000000000";
 
@@ -256,19 +259,8 @@ function Collection() {
           </div>
         </section>
         {claimedNFTs &&
-            <React.Suspense fallback={<div>Load Images..</div>}>
-              <section className={`${styles.container2}`}>
-                <div className={styles.wrapper}>
-                  <h1 className={styles.section2__title}>{t('market.available')}</h1>
-                  <ul className={styles.grid}>
-                    {claimedNFTs?.map((nft, index) => {
-                      return (
-                          <CollectionItem initAddress={initAddress} key={index} owner={nft.owner} imageSrc={nft.metadata.image as string} title={nft.metadata.name as string} ></CollectionItem>
-                      );
-                    })}
-                  </ul>
-                </div>
-              </section>
+            <React.Suspense fallback={<div>loading..</div>}>
+              <DropList claimedNfts={claimedNFTs} initAddress={initAddress}></DropList>
             </React.Suspense>
         }
       </div>
