@@ -27,7 +27,7 @@ function Home() {
       <div className="keyvisual__container">
         <Swiper
           slidesPerView={1}
-          threshold={70}
+          threshold={40}
           modules={[Navigation, Pagination]}
           navigation
           pagination={{ clickable: true }}
