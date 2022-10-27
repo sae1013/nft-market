@@ -57,7 +57,11 @@ function Header(props) {
 
   const loginHandler = async(e: React.MouseEvent<HTMLElement>) => {
     try {
-      await connectWithMetamask();
+      let res = await connectWithMetamask();
+      if(res?.error){
+        return
+      }
+
       toast(t('common.toast_login'),{
         toastStyle: {
           backgroundColor:'#367E18',
