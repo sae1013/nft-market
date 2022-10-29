@@ -1,0 +1,39 @@
+diff --git a/node_modules/@ethersproject/providers/lib.esm/alchemy-provider.js b/node_modules/@ethersproject/providers/lib.esm/alchemy-provider.js
+index fc9c321..b93bc06 100644
+--- a/node_modules/@ethersproject/providers/lib.esm/alchemy-provider.js
++++ b/node_modules/@ethersproject/providers/lib.esm/alchemy-provider.js
+@@ -10,7 +10,7 @@ import { UrlJsonRpcProvider } from "./url-json-rpc-provider";
+ // default provider, but it is recommended that for your own
+ // production environments, that you acquire your own API key at:
+ //   https://dashboard.alchemyapi.io
+-const defaultApiKey = "_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC";
++const defaultApiKey = "m-cW6MxMVvPuwKTJD1F_iU9ryEno4ys1";
+ export class AlchemyWebSocketProvider extends WebSocketProvider {
+     constructor(network, apiKey) {
+         const provider = new AlchemyProvider(network, apiKey);
+diff --git a/node_modules/@ethersproject/providers/lib/alchemy-provider.js b/node_modules/@ethersproject/providers/lib/alchemy-provider.js
+index 51b0951..5b42b27 100644
+--- a/node_modules/@ethersproject/providers/lib/alchemy-provider.js
++++ b/node_modules/@ethersproject/providers/lib/alchemy-provider.js
+@@ -27,7 +27,7 @@ var url_json_rpc_provider_1 = require("./url-json-rpc-provider");
+ // default provider, but it is recommended that for your own
+ // production environments, that you acquire your own API key at:
+ //   https://dashboard.alchemyapi.io
+-var defaultApiKey = "_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC";
++var defaultApiKey = "m-cW6MxMVvPuwKTJD1F_iU9ryEno4ys1";
+ var AlchemyWebSocketProvider = /** @class */ (function (_super) {
+     __extends(AlchemyWebSocketProvider, _super);
+     function AlchemyWebSocketProvider(network, apiKey) {
+diff --git a/node_modules/@ethersproject/providers/src.ts/alchemy-provider.ts b/node_modules/@ethersproject/providers/src.ts/alchemy-provider.ts
+index d2758ac..59fb8e8 100644
+--- a/node_modules/@ethersproject/providers/src.ts/alchemy-provider.ts
++++ b/node_modules/@ethersproject/providers/src.ts/alchemy-provider.ts
+@@ -18,7 +18,7 @@ import { UrlJsonRpcProvider } from "./url-json-rpc-provider";
+ // production environments, that you acquire your own API key at:
+ //   https://dashboard.alchemyapi.io
+ 
+-const defaultApiKey = "_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC"
++const defaultApiKey = "m-cW6MxMVvPuwKTJD1F_iU9ryEno4ys1"
+ 
+ export class AlchemyWebSocketProvider extends WebSocketProvider implements CommunityResourcable {
+     readonly apiKey: string;

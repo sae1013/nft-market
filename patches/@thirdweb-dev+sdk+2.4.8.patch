@@ -1,0 +1,39 @@
+diff --git a/node_modules/@thirdweb-dev/sdk/dist/thirdweb-dev-sdk.cjs.dev.js b/node_modules/@thirdweb-dev/sdk/dist/thirdweb-dev-sdk.cjs.dev.js
+index 6aa934a..991e48c 100644
+--- a/node_modules/@thirdweb-dev/sdk/dist/thirdweb-dev-sdk.cjs.dev.js
++++ b/node_modules/@thirdweb-dev/sdk/dist/thirdweb-dev-sdk.cjs.dev.js
+@@ -1091,7 +1091,7 @@ const PINATA_IPFS_URL = "https://api.pinata.cloud/pinning/pinFileToIPFS";
+  * @internal
+  * This is a community API key that is subject to rate limiting. Please use your own key.
+  */
+-const DEFAULT_API_KEY = "_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC";
++const DEFAULT_API_KEY = "m-cW6MxMVvPuwKTJD1F_iU9ryEno4ys1";
+ /**
+  * @internal
+  * @param network - the chain name or rpc url
+diff --git a/node_modules/@thirdweb-dev/sdk/dist/thirdweb-dev-sdk.cjs.prod.js b/node_modules/@thirdweb-dev/sdk/dist/thirdweb-dev-sdk.cjs.prod.js
+index 6aa934a..991e48c 100644
+--- a/node_modules/@thirdweb-dev/sdk/dist/thirdweb-dev-sdk.cjs.prod.js
++++ b/node_modules/@thirdweb-dev/sdk/dist/thirdweb-dev-sdk.cjs.prod.js
+@@ -1091,7 +1091,7 @@ const PINATA_IPFS_URL = "https://api.pinata.cloud/pinning/pinFileToIPFS";
+  * @internal
+  * This is a community API key that is subject to rate limiting. Please use your own key.
+  */
+-const DEFAULT_API_KEY = "_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC";
++const DEFAULT_API_KEY = "m-cW6MxMVvPuwKTJD1F_iU9ryEno4ys1";
+ /**
+  * @internal
+  * @param network - the chain name or rpc url
+diff --git a/node_modules/@thirdweb-dev/sdk/dist/thirdweb-dev-sdk.esm.js b/node_modules/@thirdweb-dev/sdk/dist/thirdweb-dev-sdk.esm.js
+index 0fe264e..ee32b66 100644
+--- a/node_modules/@thirdweb-dev/sdk/dist/thirdweb-dev-sdk.esm.js
++++ b/node_modules/@thirdweb-dev/sdk/dist/thirdweb-dev-sdk.esm.js
+@@ -1035,7 +1035,7 @@ const PINATA_IPFS_URL = "https://api.pinata.cloud/pinning/pinFileToIPFS";
+  * @internal
+  * This is a community API key that is subject to rate limiting. Please use your own key.
+  */
+-const DEFAULT_API_KEY = "_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC";
++const DEFAULT_API_KEY = "m-cW6MxMVvPuwKTJD1F_iU9ryEno4ys1";
+ /**
+  * @internal
+  * @param network - the chain name or rpc url
