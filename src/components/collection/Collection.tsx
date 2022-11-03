@@ -39,7 +39,7 @@ function Collection() {
   const { slug } = useParams();
   const [contractAddress, setContractAddress] = useState<string>();
   const nftDrop = useNFTDrop(contractAddress); // sanity에서 주소를 먼저 가져오고, third web에 요청
-  const { data: claimedNFTs, isLoading } = useClaimedNFTs(nftDrop); // thirdWeb, nftDrop의 모든 claim아이템 조회
+  const { data: claimedNFTs, isLoading,refetch:refetchClaimNFT } = useClaimedNFTs(nftDrop); // thirdWeb, nftDrop의 모든 claim아이템 조회
   const [isMinting, setIsMinting] = useState<boolean>(false);
   const ctx = React.useContext<haltLoginContextType>(haltContext);
   const {t} = useTranslation();
@@ -85,6 +85,8 @@ function Collection() {
     }
     ctx.haltLoginHandler(false);
     setIsMinting(false);
+    const clmaedRefetchResult = await refetchClaimNFT();
+    const supplyRefetchResult = await supplyRefetch();
   };
 
   const query = `
@@ -146,6 +148,7 @@ function Collection() {
     error: supplyError,
     data: clamedSupply,
     isLoading: supplyLoading,
+    refetch:supplyRefetch
   } = supplyQuery;
 
   const {
